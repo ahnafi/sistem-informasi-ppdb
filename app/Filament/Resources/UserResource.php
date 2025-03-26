@@ -42,6 +42,11 @@ class UserResource extends Resource
                     ->image()
                     ->avatar()
                     ->directory('avatar'),
+                Forms\Components\Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
             ]);
     }
 
@@ -58,6 +63,8 @@ class UserResource extends Resource
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('avatar')
                     ->circular(),
+                Tables\Columns\TextColumn::make("roles.name")
+                    ->badge(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -71,8 +78,9 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
