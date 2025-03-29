@@ -87,8 +87,7 @@ class ArticleResource extends Resource
                 Tables\Columns\TextColumn::make('author.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\ToggleColumn::make('is_featured')
-                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('is_featured'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

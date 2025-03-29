@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AuthorResource extends Resource
 {
     protected static ?string $model = Author::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Manajemen Artikel';
+    protected static ?string $navigationIcon = 'heroicon-o-user-plus';
 
     public static function form(Form $form): Form
     {
@@ -25,12 +25,17 @@ class AuthorResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('avatar')
+                    ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('bio')
-                    ->columnSpanFull(),
-            ]);
+                    ->columnSpanFull()
+                    ->nullable(),
+                Forms\Components\FileUpload::make('avatar')
+                    ->image()
+                    ->avatar()
+                    ->imageEditor()
+                    ->nullable(),
+            ])->columns(2);
     }
 
     public static function table(Table $table): Table
@@ -39,8 +44,8 @@ class AuthorResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('avatar')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('avatar')
+                    ->rounded(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
