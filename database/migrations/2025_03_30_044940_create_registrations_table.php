@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->string('origin_school');
             $table->enum('school_type', ["public", "private"]);
             $table->string("information");
-            $table->enum("status", ["pending", "accepted", "rejected"]);
+            $table->enum("status", ["pending", "accepted", "rejected"])->default("pending");
             $table->softDeletes();
             $table->timestamps();
         });

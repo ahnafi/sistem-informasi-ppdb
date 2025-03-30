@@ -15,10 +15,10 @@ return new class extends Migration {
             $table->enum("type", ["father", "mother", "guardian"]);
             $table->string("name");
             $table->string("phone")->nullable();
-            $table->string("village_district_province");
+            $table->string("village_district_province")->nullable();
             $table->string("address")->nullable();
             $table->string("job")->nullable();
-            $table->enum("income", ["<1", "1-2", "2-3", "3-4", "4-5", ">5"]);
+            $table->enum("income", ["<1", "1-2", "2-3", "3-4", "4-5", ">5"])->nullable();
             $table->foreignId("registration_id")->constrained()->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
