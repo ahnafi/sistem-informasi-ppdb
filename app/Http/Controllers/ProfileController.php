@@ -8,17 +8,17 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return response()->render('Home');
+        return response()->view('home');
     }
 
     public function about()
     {
-        return response()->render('About');
+        return response()->view('about');
     }
 
     public function contact()
     {
-        return response()->render('Contact');
+        return response()->view('contact');
     }
 
     public function sendContact(): \Illuminate\Http\RedirectResponse

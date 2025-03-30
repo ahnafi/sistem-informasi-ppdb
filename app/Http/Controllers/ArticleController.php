@@ -12,7 +12,7 @@ class ArticleController extends Controller
         $news = Article::query()->latest()->take(4)->get();
         $articles = Article::query()->paginate(10);
         $featured = Article::where('is_featured', 1)->limit(4)->get();
-        return response()->render('article/Index', [
+        return response()->view('article/index', [
             'news' => $news,
             'articles' => $articles,
             'featured' => $featured
@@ -36,7 +36,7 @@ class ArticleController extends Controller
             })
             ->paginate(10);
 
-        return response()->render('article/Search', [
+        return response()->view('article/search', [
             'articles' => $articles,
             'query' => $search,
             'category' => $category
@@ -46,6 +46,6 @@ class ArticleController extends Controller
 
     public function detail(Article $article)
     {
-        return response()->render('article/Detail', ["detail" => $article->load(["articleCategory", "user"])]);
+        return response()->view('article/detail', ["detail" => $article->load(["articleCategory", "user"])]);
     }
 }

@@ -8,7 +8,7 @@ class RegistrationController extends Controller
 {
     public function index()
     {
-        return response()->render('registration/Index');
+        return response()->view('registration/index');
     }
 
     public function registration(): \Illuminate\Http\RedirectResponse
