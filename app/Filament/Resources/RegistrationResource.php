@@ -6,6 +6,10 @@ use App\Filament\Resources\RegistrationResource\Pages;
 use App\Filament\Resources\RegistrationResource\RelationManagers;
 use App\Models\Registration;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -28,169 +32,95 @@ class RegistrationResource extends Resource
     {
         return $form
             ->schema([
-                Wizard::make([
-                    Wizard\Step::make('Data diri siswa')
-                        ->schema([
-                            Forms\Components\TextInput::make('email')
-                                ->email()
-                                ->required()
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('name')
-                                ->required()
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('gender')
-                                ->required(),
-                            Forms\Components\TextInput::make('place_of_birth')
-                                ->required()
-                                ->maxLength(255),
-                            Forms\Components\DatePicker::make('date_of_birth')
-                                ->required()
-                                ->minDate(now()->subYears(30))
-                                ->maxDate(now()->subYears(10)),
-                            Forms\Components\TextInput::make('village_district_province')
-                                ->required()
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('address')
-                                ->required()
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('phone')
-                                ->tel()
-                                ->required()
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('nisn')
-                                ->required()
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('origin_school')
-                                ->required()
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('school_type')
-                                ->required(),
-                            Forms\Components\TextInput::make('information')
-                                ->required()
-                                ->maxLength(255),
-                        ]),
-                    Wizard\Step::make('Data periodik siswa')
-                        ->schema([
-                            Forms\Components\Group::make()
-                                ->relationship('periodic')
-                                ->schema([
-                                    Forms\Components\Select::make('religion')
-                                        ->options([
-                                            "islam" => "Islam",
-                                            "hindu" => "Hindu",
-                                            "buddha" => "Buddha",
-                                            "konghucu" => "Kong hu cu",
-                                            "Catholic" => "Katolik",
-                                            "Protestant" => "Protestan",
-                                            "other" => "Other",
-                                        ]),
-                                    Forms\Components\Select::make('residence')
-                                        ->options([
-                                            "Bersama orang tua",
-                                            "Kost",
-                                            "Bersama saudara",
-                                            "Rumah sendiri",
-                                            "Tidak punya rumah",
-                                            "Tidur berpindah pindah",
-                                            "Lain-lain",
-                                        ]),
-                                    TextInput::make('height')
-                                        ->numeric()
-                                        ->maxValue(300)
-                                        ->minValue(0),
-                                    TextInput::make('weight')
-                                        ->numeric()
-                                        ->minValue(0),
-                                    Select::make('medical_history')
-                                        ->options([
-                                            "Ya",
-                                            "Tidak"
-                                        ]),
-                                    TextInput::make('home_distance')
-                                        ->numeric()
-                                        ->minValue(0),
-                                    TextInput::make('travel_time')
-                                        ->numeric()
-                                        ->minValue(0),
-                                    Select::make('child_status')
-                                        ->options([
-                                            "biological", "adopted"
-                                        ]),
-                                    TextInput::make('child_order')
-                                        ->numeric()
-                                        ->minValue(0),
-                                    TextInput::make('siblings')
-                                        ->numeric()
-                                        ->minValue(0),
-                                ])->columns(2)->columnSpanFull(),
-                        ]),
-                    Wizard\Step::make('Prestasi')
-                        ->schema([
-                            Forms\Components\Repeater::make('achievements')
-                                ->relationship()
-                                ->schema([
-                                    Forms\Components\Select::make('type')
-                                        ->options(["academic" => "Akademik", "nonacademic" => "Non Akademik"])
-                                        ->required(),
-                                    Forms\Components\TextInput::make('name')
-                                        ->required(),
-                                    Forms\Components\DatePicker::make('year')
-                                        ->format("Y")
-                                        ->minDate(now()->subYears(150))
-                                        ->maxDate(now())
-                                        ->required(),
-                                    Select::make("ranking")
-                                        ->options([1, 2, 3]),
-                                    Select::make("tier")
-                                        ->label("Tingkat")
-                                        ->options([
-                                            "village" => "Desa",
-                                            "sub_district" => "Kecamatan",
-                                            "district" => "Kabupaten",
-                                            "province" => "Provinsi",
-                                            "national" => "Nasional",
-                                            "international" => "Internasional",
-                                            "world" => "Dunia"
-                                        ])
-                                ])->columns(5)->columnSpanFull(),
-                        ]),
-                    Wizard\Step::make('Data orang tua/wali murid')
-                        ->schema([
-                            Forms\Components\Repeater::make('studentParents')
-                                ->relationship()
-                                ->schema([
-                                    Select::make('type')
-                                        ->options(["father" => "Ayah", "mother" => "Ibu", "guardian" => "Wali"])
-                                        ->required(),
-                                    Forms\Components\TextInput::make('name')
-                                        ->required(),
-                                    Forms\Components\TextInput::make('phone')
-                                        ->tel(),
-                                    Forms\Components\TextInput::make('village_district_province')
-                                        ->maxLength(255),
-                                    TextInput::make('address')->nullable(),
-                                    TextInput::make('job')->nullable(),
-                                    Select::make("income")->options([
-                                        "<1" => "<1.000.000",
-                                        "1-2" => "1.000.000 - 2.000.000",
-                                        "2-3" => "2.000.000 - 3.000.000",
-                                        "3-4" => "3.000.000 - 4.000.000",
-                                        "4-5" => "4.000.000 - 5.000.000",
-                                        ">5" => ">5.000.000 ",
-                                    ])->nullable(),
-                                ])->columns(3)->columnSpanFull(),
-                        ])
-                ])->submitAction(new HtmlString(Blade::render(<<<BLADE
-                        <x-filament::button
-                            type="submit"
-                            size="sm"
-                        >
-                            Submit
-                        </x-filament::button>
-                        BLADE
-                )))
-                    ->columns(2)
-                    ->columnSpanFull()
+                Section::make('Data Diri Siswa')
+                    ->schema([
+                        TextInput::make('email')->email()->required()->maxLength(255),
+                        TextInput::make('name')->required()->maxLength(255),
+                        Select::make('gender')->options(["male" => "Laki-Laki", "female" => "Perempuan"])->required(),
+                        TextInput::make('place_of_birth')->required()->maxLength(255),
+                        DatePicker::make('date_of_birth')
+                            ->required()
+                            ->minDate(now()->subYears(30))
+                            ->maxDate(now()->subYears(10)),
+                        TextInput::make('village_district_province')->required()->maxLength(255),
+                        TextInput::make('address')->required()->maxLength(255),
+                        TextInput::make('phone')->tel()->required()->maxLength(255),
+                        TextInput::make('nisn')->required()->maxLength(255),
+                        TextInput::make('origin_school')->required()->maxLength(255),
+                        Select::make('school_type')->options(["public" => "Negeri", "private" => "Swasta"])->required(),
+                        TextInput::make('information')->required()->maxLength(255),
+                    ])->columns(2),
+
+                Section::make('Data Periodik Siswa')
+                    ->schema([
+                        Group::make()->relationship('periodic')->schema([
+                            Select::make('religion')->options([
+                                "islam" => "Islam",
+                                "hindu" => "Hindu",
+                                "buddha" => "Buddha",
+                                "konghucu" => "Kong hu cu",
+                                "Catholic" => "Katolik",
+                                "Protestant" => "Protestan",
+                                "other" => "Other",
+                            ]),
+                            Select::make('residence')->options([
+                                "Bersama orang tua",
+                                "Kost",
+                                "Bersama saudara",
+                                "Rumah sendiri",
+                                "Tidak punya rumah",
+                                "Tidur berpindah pindah",
+                                "Lain-lain",
+                            ]),
+                            TextInput::make('height')->numeric()->maxValue(300)->minValue(0),
+                            TextInput::make('weight')->numeric()->minValue(0),
+                            Select::make('medical_history')->options([true => "Ya", false => "Tidak"]),
+                            TextInput::make('home_distance')->numeric()->minValue(0),
+                            TextInput::make('travel_time')->numeric()->minValue(0),
+                            Select::make('child_status')->options(["biological" => "Kandung", "adopted" => "Adopsi"]),
+                            TextInput::make('child_order')->numeric()->minValue(0),
+                            TextInput::make('siblings')->numeric()->minValue(0),
+                        ])->columns(2),
+                    ]),
+
+                Section::make('Prestasi')
+                    ->schema([
+                        Repeater::make('achievements')->relationship()->schema([
+                            Select::make('type')->options(["academic" => "Akademik", "nonacademic" => "Non Akademik"])->required(),
+                            TextInput::make('name')->required(),
+                            DatePicker::make('year')->format("Y")->minDate(now()->subYears(150))->maxDate(now())->required(),
+                            Select::make("ranking")->options([1, 2, 3]),
+                            Select::make("tier")->label("Tingkat")->options([
+                                "village" => "Desa",
+                                "sub_district" => "Kecamatan",
+                                "district" => "Kabupaten",
+                                "province" => "Provinsi",
+                                "national" => "Nasional",
+                                "international" => "Internasional",
+                                "world" => "Dunia"
+                            ])
+                        ])->columns(5),
+                    ]),
+
+                Section::make('Data Orang Tua/Wali Murid')
+                    ->schema([
+                        Repeater::make('studentParents')->relationship()->schema([
+                            Select::make('type')->options(["father" => "Ayah", "mother" => "Ibu", "guardian" => "Wali"])->required(),
+                            TextInput::make('name')->required(),
+                            TextInput::make('phone')->tel(),
+                            TextInput::make('village_district_province')->maxLength(255),
+                            TextInput::make('address')->nullable(),
+                            TextInput::make('job')->nullable(),
+                            Select::make("income")->options([
+                                "<1" => "<1.000.000",
+                                "1-2" => "1.000.000 - 2.000.000",
+                                "2-3" => "2.000.000 - 3.000.000",
+                                "3-4" => "3.000.000 - 4.000.000",
+                                "4-5" => "4.000.000 - 5.000.000",
+                                ">5" => ">5.000.000",
+                            ])->nullable(),
+                        ])->columns(3),
+                    ])
             ]);
     }
 

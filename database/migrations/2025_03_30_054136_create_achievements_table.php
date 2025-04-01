@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->enum("ranking", [1, 2, 3]);
             $table->enum("tier", ["village", "sub_district", "district", "province", "national", "international", "world"]);
             $table->foreignId("registration_id")->constrained()->cascadeOnDelete();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

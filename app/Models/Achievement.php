@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Achievement extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = [
         "type",
         "name",
