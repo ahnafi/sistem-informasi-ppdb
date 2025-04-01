@@ -89,7 +89,7 @@ class RegistrationResource extends Resource
                             Select::make('type')->options(["academic" => "Akademik", "nonacademic" => "Non Akademik"])->required(),
                             TextInput::make('name')->required(),
                             DatePicker::make('year')->format("Y")->minDate(now()->subYears(150))->maxDate(now())->required(),
-                            Select::make("ranking")->options([1, 2, 3]),
+                            Select::make("ranking")->options([1 => "1", 2 => "2", 3 => "3"])->required(),
                             Select::make("tier")->label("Tingkat")->options([
                                 "village" => "Desa",
                                 "sub_district" => "Kecamatan",
