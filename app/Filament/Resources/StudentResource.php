@@ -78,7 +78,8 @@ class StudentResource extends Resource
 
                 Forms\Components\FileUpload::make('avatar')
                     ->avatar()
-                    ->directory('students')
+                    ->image()
+                    ->directory('student_photos')
                     ->imageEditor(),
             ]);
     }

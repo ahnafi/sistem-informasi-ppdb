@@ -6,6 +6,7 @@ use App\Filament\Resources\TeacherResource\Pages;
 use App\Filament\Resources\TeacherResource\RelationManagers;
 use App\Models\Teacher;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -29,6 +30,7 @@ class TeacherResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('school_email')
                     ->email()
+                    ->nullable()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('name')
                     ->required()
@@ -40,24 +42,34 @@ class TeacherResource extends Resource
                     ->tel()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('gender')
+                Forms\Components\Select::make('gender')->options(["male" => "Laki-Laki", "female" => "Perempuan"])
                     ->required(),
                 Forms\Components\DatePicker::make('date_of_birth')
+                    ->minDate(now()->subYears(150))->maxDate(now())
                     ->required(),
                 Forms\Components\Textarea::make('address')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('status'),
-                Forms\Components\TextInput::make('position'),
-                Forms\Components\TextInput::make('photo')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('religion'),
+                    ->required(),
+                Forms\Components\Select::make('status')->options(['PNS', 'PPPK', 'GTY', 'Honorer', 'Kontrak Daerah', 'Kontrak Sekolah', 'Wiyata Bakti', 'Relawan']),
+                Forms\Components\Select::make('position')->options(['Kepala Sekolah', 'Wakil Kepala Sekolah', 'Guru BK', 'Guru Wali Kelas', 'Guru Pembina OSIS', 'Guru Staf', 'Guru Penggerak', 'Guru Ekstrakurikuler']),
+                Select::make('religion')->options([
+                    "islam" => "Islam",
+                    "hindu" => "Hindu",
+                    "buddha" => "Buddha",
+                    "konghucu" => "Kong hu cu",
+                    "Catholic" => "Katolik",
+                    "Protestant" => "Protestan",
+                    "other" => "Other",
+                ]),
                 Forms\Components\TextInput::make('highest_education')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('appointment_descree')
                     ->maxLength(255),
+                Forms\Components\FileUpload::make('photo')
+                    ->avatar()
+                    ->image()
+                    ->imageEditor()
+                    ->directory("teacher_photos"),
                 Forms\Components\Textarea::make('teaching_history')
-                    ->columnSpanFull(),
             ]);
     }
 
