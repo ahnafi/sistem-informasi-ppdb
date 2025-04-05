@@ -27,6 +27,10 @@ class Registration extends Model
         "status",
     ];
 
+    protected $casts = [
+        'date_of_birth' => 'date',
+    ];
+
     public function periodic(): HasOne
     {
         return $this->hasOne(Periodic::class);

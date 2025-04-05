@@ -5,6 +5,10 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\RegistrationResource\Pages;
 use App\Filament\Resources\RegistrationResource\RelationManagers;
 use App\Models\Registration;
+use App\Models\Student;
+use App\Services\Nis;
+use App\Services\SchoolEmail;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
@@ -13,14 +17,17 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Wizard;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 
 class RegistrationResource extends Resource
 {
@@ -49,6 +56,19 @@ class RegistrationResource extends Resource
                         TextInput::make('origin_school')->required()->maxLength(255),
                         Select::make('school_type')->options(["public" => "Negeri", "private" => "Swasta"])->required(),
                         TextInput::make('information')->required()->maxLength(255),
+                        Forms\Components\ToggleButtons::make('status')
+                            ->options([
+                                'pending' => 'Pending',
+                                'accepted' => 'Accepted',
+                                'rejected' => 'Rejected',
+                            ])
+                            ->colors([
+                                'success' => 'accepted',
+                                'warning' => 'pending',
+                                'danger' => 'rejected',
+                            ])
+                            ->inline()
+                            ->visibleOn("view"),
                     ])->columns(2),
 
                 Section::make('Data Periodik Siswa')
@@ -128,6 +148,13 @@ class RegistrationResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->colors([
+                        'success' => 'accepted',
+                        'warning' => 'pending',
+                        'danger' => 'rejected',
+                    ]),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
@@ -151,7 +178,6 @@ class RegistrationResource extends Resource
                 Tables\Columns\TextColumn::make('school_type'),
                 Tables\Columns\TextColumn::make('information')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
@@ -167,17 +193,71 @@ class RegistrationResource extends Resource
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\SelectFilter::make("status")
+                    ->options([
+                        'pending' => 'Pending',
+                        'accepted' => 'Accepted',
+                        'rejected' => 'Rejected',
+                    ]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
-                ]),
-            ]);
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])->icon('heroicon-m-ellipsis-horizontal')->tooltip('Actions'),
+                Tables\Actions\Action::make('accept')
+                    ->label('Accept')
+                    ->icon('heroicon-s-check-circle')
+                    ->requiresConfirmation()
+                    ->color('success')
+                    ->action(function (Model $record) {
+                        $record->update([
+                            'status' => 'accepted',
+                        ]);
+
+                        if (!$record->student) {
+                            Student::create([
+                                'nis' => Nis::generate($record->id, $record->date_of_birth),
+                                'name' => $record->name,
+                                'school_email' => SchoolEmail::generate($record->name),
+                                'registration_id' => $record->id,
+                            ]);
+                        }
+                        Notification::make()
+                            ->title('Student successfully accepted')
+                            ->icon('heroicon-o-document-text')
+                            ->iconColor('success')
+                            ->send();
+                    })->visible(function (Model $record) {
+                        return $record->status !== 'accepted';
+                    }),
+                Tables\Actions\Action::make("reject")
+                    ->label('Reject')
+                    ->icon('heroicon-s-x-circle')
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->visible(function (Model $record) {
+                        return $record->status !== 'rejected';
+                    })
+                    ->action(function (Model $record) {
+
+                        $record->update([
+                            'status' => 'rejected',
+                        ]);
+
+                        if ($record->student) {
+                            $record->student->forceDelete();
+                        }
+                    }),
+            ], position: Tables\Enums\ActionsPosition::BeforeCells);
+//            ->bulkActions([
+//                Tables\Actions\BulkActionGroup::make([
+//                    Tables\Actions\DeleteBulkAction::make(),
+//                    Tables\Actions\ForceDeleteBulkAction::make(),
+//                    Tables\Actions\RestoreBulkAction::make(),
+//                ]),
+//            ]);
     }
 
     public static function getRelations(): array
