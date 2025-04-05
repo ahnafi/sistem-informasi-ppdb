@@ -7,6 +7,7 @@ use App\Filament\Resources\StudentResource\RelationManagers;
 use App\Models\Student;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,27 +18,68 @@ class StudentResource extends Resource
 {
     protected static ?string $model = Student::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-user-group';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+
+                Forms\Components\Select::make('registration_id')
+                    ->relationship('registration', 'name')
+                    ->searchable()
+                    ->live()
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, Forms\Set $set) {
+                        $registration = \App\Models\Registration::with('student')->find($state);
+
+                        if (!$registration) return;
+
+                        if ($registration->student) {
+                            Notification::make()
+                                ->title('Sudah Terdaftar')
+                                ->body('Siswa untuk registrasi ini sudah dibuat sebelumnya.')
+                                ->warning()
+                                ->persistent()
+                                ->send();
+
+                            // Kosongkan kembali agar user tidak bisa lanjut
+                            $set('registration_id', null);
+                            $set('nis', null);
+                            $set('name', null);
+                            $set('school_email', null);
+                            return;
+                        }
+
+                        // Belum ada student, boleh lanjut generate
+                        $nis = \App\Services\Nis::generate($registration->id, $registration->date_of_birth);
+                        $email = \App\Services\SchoolEmail::generate($registration->name);
+
+                        $set('nis', $nis);
+                        $set('name', $registration->name);
+                        $set('school_email', $email);
+                    })
+                    ->required(),
+
+
                 Forms\Components\TextInput::make('nis')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->readonly(),
+
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+
                 Forms\Components\TextInput::make('school_email')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('avatar')
-                    ->maxLength(255),
-                Forms\Components\Select::make('registration_id')
-                    ->relationship('registration', 'name')
-                    ->required(),
+
+                Forms\Components\FileUpload::make('avatar')
+                    ->avatar()
+                    ->directory('students')
+                    ->imageEditor(),
             ]);
     }
 
