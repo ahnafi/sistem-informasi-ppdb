@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\Http\Response
     {
-        return response()->view('registration/index');
+        return response()->view('pages.registration.index');
     }
 
     public function registration(): \Illuminate\Http\RedirectResponse

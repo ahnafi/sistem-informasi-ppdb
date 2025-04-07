@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class ProfileController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\Http\Response
     {
-        return response()->view('home');
+        return response()->view('pages.home');
     }
 
-    public function about()
+    public function about(): \Illuminate\Http\Response
     {
-        return response()->view('about');
+        return response()->view('pages.about');
     }
 
-    public function contact()
+    public function contact(): \Illuminate\Http\Response
     {
-        return response()->view('contact');
+        return response()->view('pages.contact');
     }
 
     public function sendContact(): \Illuminate\Http\RedirectResponse
