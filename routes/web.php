@@ -12,6 +12,8 @@ Route::post('/contact', [ProfileController::class, "sendContact"])->name('home.c
 
 Route::get('/registration', [RegistrationController::class, "index"])->name('registration');
 Route::post('/registration', [RegistrationController::class, "registration"])->name('registration.submit');
+Route::get("/check", [RegistrationController::class, "check"])->name('registration.check');
+Route::get("/check/result", [RegistrationController::class, "checkResult"])->name('registration.check.result');
 
 Route::get('/article', [ArticleController::class, "index"])->name('article');
 Route::get('/article/search', [ArticleController::class, "search"])->name('article.search');

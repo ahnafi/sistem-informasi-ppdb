@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('village_district_province');
             $table->string('address');
             $table->string('phone');
-            $table->string('nisn');
+            $table->string('nisn')->unique();
             $table->string('origin_school');
             $table->enum('school_type', ["public", "private"]);
             $table->string("information");
