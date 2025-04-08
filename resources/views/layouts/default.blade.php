@@ -6,9 +6,7 @@
         <title> @yield("title") {{" | " . env("APP_NAME","Welcome")}}</title>
     </head>
     <body>
-        <header>
-            @include("includes.navbar")
-        </header>
+        @include("includes.navbar")
 
         <div id="main">
             @yield("main")
