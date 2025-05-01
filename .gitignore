@@ -21,3 +21,17 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Lock files
+# composer.lock
+# package-lock.json
+# yarn.lock
+
+# Local development files
+.DS_Store
+Thumbs.db
+.php_cs.cache
+.php-cs-fixer.cache
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php

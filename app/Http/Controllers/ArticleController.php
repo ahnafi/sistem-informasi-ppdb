@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
+use App\Models\Author;
+use Doctrine\DBAL\Query\Limit;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -12,10 +15,15 @@ class ArticleController extends Controller
         $news = Article::query()->latest()->take(4)->get();
         $articles = Article::query()->paginate(10);
         $featured = Article::where('is_featured', 1)->limit(4)->get();
+        $categories = Category::query()->withCount('articles')->limit(5)->get();
+        $authors = Author::query()->withCount('articles')->limit(5)->get();
+
         return response()->view('pages.article.index', [
             'news' => $news,
             'articles' => $articles,
-            'featured' => $featured
+            'featured' => $featured,
+            'categories' => $categories,
+            'authors' => $authors
         ]);
     }
 
@@ -46,6 +54,6 @@ class ArticleController extends Controller
 
     public function detail(Article $article)
     {
-        return response()->view('pages.article.detail', ["detail" => $article->load(["articleCategory", "user"])]);
+        return response()->view('pages.article.detail', ["detail" => $article->load(["Category", "author"])]);
     }
 }

@@ -5,9 +5,8 @@
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
             <div class="col-span-full lg:col-span-2">
                 <div class="flex items-center gap-2">
-                    <img src="{{asset("images/logo.png")}}" alt="School Logo" class="w-12 h-12">
-                    <a class="flex-none text-xl md:text-3xl lg:text-5xl font-semibold text-white focus:outline-hidden focus:opacity-80" href="/"
-                       aria-label="Brand">{{env("APP_NAME","Sekolahku")}}</a>
+                    <img src="{{asset("images/logonobg.png")}}" alt="School Logo" class="w-12 h-12">
+                    <a class="flex-none text-xl md:text-3xl lg:text-5xl font-semibold text-white focus:outline-hidden focus:opacity-80" href="/"aria-label="Brand">{{env("APP_NAME","Sekolahku")}}</a>Hogwarts
                 </div>
                 <p class="font-normal text-white text-sm md:text-base lg:text-lg me-0 md:me-32 lg:me-0 mt-4">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus ad nam pariatur, recusandae unde!
@@ -16,57 +15,64 @@
             <!-- End Col -->
 
             <div class="col-span-1">
-                <h4 class="font-semibold text-gray-100">Product</h4>
+                <h4 class="font-semibold text-gray-100">Halaman Utama</h4>
 
                 <div class="mt-3 grid space-y-3">
                     <p>
                         <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                           href="#">Pricing</a></p>
+                           href="{{ url('/') }}">Beranda</a></p>
                     <p>
                         <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                           href="#">Changelog</a></p>
+                           href="{{ url('/article') }}">Berita</a></p>
                     <p>
                         <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                           href="#">Docs</a></p>
+                           href="{{ url('/contact') }}">Kontak</a></p>
                 </div>
             </div>
             <!-- End Col -->
 
             <div class="col-span-1">
-                <h4 class="font-semibold text-gray-100">Company</h4>
+                <h4 class="font-semibold text-gray-100">Tentang Sekolah</h4>
 
                 <div class="mt-3 grid space-y-3">
                     <p>
                         <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                           href="#">About us</a></p>
-                    <p>
-                        <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                           href="#">Blog</a></p>
-                    <p>
-                        <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                           href="#">Careers</a> <span
-                            class="inline-block ms-1 text-xs bg-blue-700 text-white py-1 px-2 rounded-lg">We're hiring</span>
+                           href="{{ url('/profil') }}">Profil Sekolah</a>
                     </p>
                     <p>
                         <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                           href="#">Customers</a></p>
+                           href="{{ url('/guru') }}">Daftar Guru</a>
+                    </p>
+                    <p>
+                        <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
+                           href="{{ url('/struktur') }}">Struktur Organisasi</a>
+                    </p>
+                    <p>
+                        <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
+                           href="{{ url('/kalender') }}">Kalender Akademik</a>
+                    </p>
+                    <p>
+                        <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
+                           href="#">Pendaftaran</a> <span
+                            class="inline-block ms-1 text-xs bg-blue-700 text-white py-1 px-2 rounded-lg">We're hiring</span>
+                    </p>
                 </div>
             </div>
             <!-- End Col -->
 
             <div class="col-span-1">
-                <h4 class="font-semibold text-gray-100">Product</h4>
+                <h4 class="font-semibold text-gray-100">Program Sekolah</h4>
 
                 <div class="mt-3 grid space-y-3">
                     <p>
                         <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                           href="#">Pricing</a></p>
+                           href="{{ url('/akademik') }}">Akademik</a></p>
                     <p>
                         <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                           href="#">Changelog</a></p>
+                           href="{{ url('/kesiswaan') }}">Kesiswaan</a></p>
                     <p>
                         <a class="inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-hidden focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200"
-                           href="#">Docs</a></p>
+                           href="{{ url('/fasilitas') }}">Fasilitas</a></p>
                 </div>
             </div>
             <!-- End Col -->

@@ -9,9 +9,19 @@ class ProfileController extends Controller
         return response()->view('pages.home');
     }
 
-    public function about(): \Illuminate\Http\Response
+    public function profile(): \Illuminate\Http\Response
     {
-        return response()->view('pages.about');
+        return response()->view('pages.profile');
+    }
+
+    public function orgstructure(): \Illuminate\Http\Response
+    {
+        return response()->view('pages.orgstructure');
+    }
+
+    public function teachers(): \Illuminate\Http\Response
+    {
+        return response()->view('pages.teachers');
     }
 
     public function contact(): \Illuminate\Http\Response

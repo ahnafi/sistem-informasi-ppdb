@@ -6,8 +6,10 @@ use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProfileController::class, "index"])->name('home');
-Route::get('/about', [ProfileController::class, "about"])->name('home.about');
+Route::get('/profile', [ProfileController::class, "profile"])->name('home.profile');
 Route::get('/contact', [ProfileController::class, "contact"])->name('home.contact');
+Route::get('/orgstructure', [ProfileController::class, "orgstructure"])->name('home.orgstructure');
+Route::get('/teachers', [ProfileController::class, "teachers"])->name('home.teachers');
 Route::post('/contact', [ProfileController::class, "sendContact"])->name('home.contact.send');
 
 Route::get('/registration', [RegistrationController::class, "index"])->name('registration');
