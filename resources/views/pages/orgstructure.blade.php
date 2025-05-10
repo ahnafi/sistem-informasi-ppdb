@@ -1,25 +1,105 @@
 @extends("layouts.default")
-@section("title","Selamat datang")
+@section("title","Struktur Organisasi SMA Hogwarts")
 
 @section("main")
 
- <!--HERO SECTION-->
+<!--HERO SECTION WITH ENHANCED DESIGN-->
 <div class="relative overflow-hidden">
-  <!-- Enhanced gradient overlay with more pronounced blue tones -->
-  <div class="absolute inset-0 bg-gradient-to-b from-blue-950/90 via-blue-800/80 to-blue-600/60 z-10"></div>
+  <!-- Enhanced gradient overlay with depth effect -->
+  <div class="absolute inset-0 bg-gradient-to-b from-blue-950/90 via-blue-800/70 to-blue-600/60 z-10"></div>
   
+  <!-- Animated subtle pattern overlay -->
+  <div class="absolute inset-0 z-10 opacity-10">
+    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E')"></div>
+  </div>
+  
+  <!-- Animated floating elements -->
+  <div class="absolute inset-0 z-10 overflow-hidden">
+    <div class="absolute top-24 left-[15%] w-16 h-16 bg-blue-400/20 rounded-full blur-xl animate-float-slow"></div>
+    <div class="absolute top-40 right-[25%] w-24 h-24 bg-indigo-300/20 rounded-full blur-xl animate-float-medium"></div>
+    <div class="absolute bottom-20 left-[30%] w-20 h-20 bg-blue-300/20 rounded-full blur-xl animate-float-fast"></div>
+  </div>
+
   <div class="w-full">
-    <!-- Added more blur for enhanced effect -->
-    <div class="w-full h-[400px] md:h-[500px] lg:h-[600px] bg-cover bg-center backdrop-blur-md" style="background-image: url('{{ asset('images/school-hero.jpg') }}');">
+    <!-- Background image with blur -->
+    <div class="w-full h-[300px] md:h-[350px] lg:h-[400px] bg-cover bg-center backdrop-blur-md" style="background-image: url('{{ asset('images/school-hero.jpg') }}');">
     </div>
   </div>
   
-  <!-- Profile Sekolah Title -->
-  <div class="absolute inset-0 z-20 flex items-center">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-wider drop-shadow-lg ml-8 md:ml-16 lg:ml-24">STRUKTUR ORGANISASI</h1>
+  <!-- Hero content with enhanced design -->
+  <div class="absolute inset-0 z-20 flex flex-col justify-center px-6 sm:px-12 lg:px-24">
+    <div class="max-w-7xl mx-auto">
+      <!-- Decorative element -->
+      <div class="w-20 h-1.5 bg-white mb-6 rounded-full opacity-70"></div>
+      
+      <!-- Title with gradient effect -->
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-wider drop-shadow-lg mb-4 bg-clip-text">
+        <span class="block">STRUKTUR ORGANISASI</span>
+      </h1>
+      
+      <p class="text-white/80 text-lg md:text-xl max-w-2xl mb-8">
+        Mengenal jajaran kepemimpinan dan pembagian tugas di lingkungan SMA Hogwarts
+      </p>
+      
+      <!-- Optional: Animated scroll indicator -->
+      <div class="hidden md:flex items-center gap-2 text-white/70">
+        <span class="text-sm font-medium">Lihat Detail</span>
+        <div class="animate-bounce">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Visual organization element indicators -->
+  <div class="absolute bottom-0 left-0 right-0 z-20 h-10 bg-gradient-to-r from-blue-800 via-blue-600 to-blue-800 opacity-80">
+    <div class="max-w-7xl mx-auto h-full flex items-center justify-between px-6">
+      <div class="flex items-center gap-2">
+        <div class="w-3 h-3 bg-blue-200 rounded-full"></div>
+        <span class="text-white text-xs font-medium">PIMPINAN</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-3 h-3 bg-blue-300 rounded-full"></div>
+        <span class="text-white text-xs font-medium">MANAJEMEN</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-3 h-3 bg-blue-400 rounded-full"></div>
+        <span class="text-white text-xs font-medium">KOORDINATOR</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+        <span class="text-white text-xs font-medium">PELAKSANA</span>
+      </div>
+    </div>
   </div>
 </div>
 
+<!-- Add these styles to your header or in a style tag -->
+<style>
+.animate-float-slow {
+  animation: float 8s ease-in-out infinite;
+}
+.animate-float-medium {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-float-fast {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+</style>
 
 <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
   <h1 class="text-3xl font-bold text-gray-900 text-center mb-8">Struktur Organisasi SMA Hogwarts</h1>

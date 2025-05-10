@@ -19,4 +19,8 @@ Route::get("/check/result", [RegistrationController::class, "checkResult"])->nam
 
 Route::get('/article', [ArticleController::class, "index"])->name('article');
 Route::get('/article/search', [ArticleController::class, "search"])->name('article.search');
+Route::get('/article/all', [ArticleController::class, 'allArticles'])->name('articles.all');
+
+Route::get('/article/authors', [ArticleController::class, 'allAuthors'])->name('article.authors');
+Route::get('/article/author/{author}', [ArticleController::class, 'authorArticles'])->name('article.author');
 Route::get('/article/{article:slug}', [ArticleController::class, "detail"])->name('article.detail');

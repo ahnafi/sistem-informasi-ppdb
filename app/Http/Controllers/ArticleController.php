@@ -51,9 +51,57 @@ class ArticleController extends Controller
         ]);
     }
 
-
     public function detail(Article $article)
     {
         return response()->view('pages.article.detail', ["detail" => $article->load(["Category", "author"])]);
+    }
+
+    public function allArticles()
+    {
+        $allArticles = Article::query()->orderBy('created_at', 'desc')->paginate(15);
+        
+        return response()->view('pages.article.all', [
+            'articles' => $allArticles,
+            'title' => 'Semua Artikel'
+        ]);
+    }
+    
+    /**
+     * Menampilkan semua author/penulis artikel
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function allAuthors()
+    {
+        $authors = Author::query()
+            ->withCount('articles')
+            ->orderByDesc('articles_count') // Urutkan berdasarkan jumlah artikel terbanyak
+            ->paginate(12);
+            
+        return response()->view('pages.article.authors', [
+            'authors' => $authors,
+            'title' => 'Semua Penulis'
+        ]);
+    }
+    
+    /**
+     * Menampilkan artikel berdasarkan author tertentu
+     *
+     * @param int|string $author
+     * @return \Illuminate\Http\Response
+     */
+    public function authorArticles($author)
+    {
+        $authorModel = Author::findOrFail($author);
+        
+        $articles = Article::where('author_id', $author)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+            
+        return response()->view('pages.article.author_articles', [
+            'author' => $authorModel,
+            'articles' => $articles,
+            'title' => "Artikel oleh {$authorModel->name}"
+        ]);
     }
 }

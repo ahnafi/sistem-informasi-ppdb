@@ -22,4 +22,12 @@ class Student extends Model
     {
         return $this->belongsTo(Registration::class);
     }
+
+    /**
+     * Get the classroom this student belongs to
+     */
+    public function classroom()
+    {
+        return $this->belongsTo(Classroom::class);
+    }
 }

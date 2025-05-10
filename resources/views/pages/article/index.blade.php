@@ -13,7 +13,7 @@
         <div class="font-bold text-2xl">
           <p>Berita Terbaru</p>
         </div>
-        <a href="{{ url('/articles') }}" class="bg-primary px-5 py-2 rounded-full text-white font-semibold mt-4 md:mt-0 h-fit hover:bg-blue-700 transition">
+        <a href="{{ route('articles.all') }}" class="bg-primary px-5 py-2 rounded-full text-white font-semibold mt-4 md:mt-0 h-fit hover:bg-blue-700 transition">
           Lihat Semua
         </a>
       </div>
@@ -25,7 +25,7 @@
             <div class="relative">
               <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1-11 0z"/>
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1-11 0z"/>
                 </svg>
               </div>
               <input type="text" id="search-input" name="s" class="py-3 px-10 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500" placeholder="Cari artikel..." value="{{ request('s') }}">
@@ -53,7 +53,7 @@
           
           <button type="submit" class="py-3 px-6 inline-flex justify-center items-center gap-2 rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all sm:mt-0">
             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1-11 0z"/>
+              <path d="M11.742 10.344a6.5 6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1-11 0z"/>
             </svg>
             Cari
           </button>
@@ -65,7 +65,7 @@
           <!-- Featured Article (artikel pertama dengan ukuran lebih besar) -->
           @php $heroArticle = $news->first(); @endphp
           <div class="md:col-span-2">
-            <a href="{{ url('/article/' . $heroArticle->slug) }}" class="hover:cursor-pointer">
+            <a href="{{ route('article.detail', $heroArticle) }}" class="hover:cursor-pointer">
               <div class="border border-slate-200 rounded-xl hover:border-primary hover:shadow-lg transition duration-300 ease-in-out bg-white h-full">
                 <div class="relative pb-[30%]">
                   @if($heroArticle->category)
@@ -94,11 +94,11 @@
             </a>
           </div>
           
-          <!-- Berita Memanjang (3 artikel berikutnya) -->
+          <!-- Berita Memanjang -->
           <div class="md:col-span-1">
             <div class="flex flex-col gap-3">
-              @foreach($news->skip(1)->take(3) as $article)
-                <a href="{{ url('/article/' . $article->slug) }}" class="hover:cursor-pointer">
+              @foreach($news->skip(1)->take(4) as $article)
+                <a href="{{ route('article.detail', $article) }}" class="hover:cursor-pointer">
                   <div class="border border-slate-200 rounded-xl hover:border-primary hover:shadow-lg transition duration-300 ease-in-out bg-white">
                     <div class="flex flex-row p-3 items-center">
                       <div class="relative w-24 h-24 flex-shrink-0">
@@ -136,21 +136,21 @@
     </div>
   </div>
 
-  <!-- Berita Unggulan dengan Background -->
+  <!-- Berita Unggulan -->
   <div class="w-full bg-gradient-to-b from-white to-blue-50 py-10">
     <div class="flex flex-col px-4 md:px-10 lg:px-14">
       <div class="flex flex-col md:flex-row justify-between items-center w-full mb-6">
         <div class="font-bold text-2xl text-center md:text-left">
           <p>Berita Unggulan Untuk Kamu</p>
         </div>
-        <a href="{{ url('/articles') }}"
+        <a href="{{ route('articles.all') }}"
           class="bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-2 rounded-full text-white font-semibold mt-4 md:mt-0 h-fit hover:from-blue-700 hover:to-blue-600 transition">
           Lihat Semua
         </a>
       </div>
       <div class="grid sm:grid-cols-1 gap-5 lg:grid-cols-4">
         @foreach($featured as $article)
-          <a href="{{ url('/article/' . $article->slug) }}">
+          <a href="{{ route('article.detail', $article) }}">
             <div class="border border-slate-200 p-3 rounded-xl hover:border-primary hover:shadow-lg transition duration-300 ease-in-out bg-white">
               @if($article->category)
                 <div class="bg-gradient-to-r from-blue-600 to-blue-400 text-white rounded-full w-fit px-5 py-1 font-normal ml-2 mt-2 text-sm absolute">
@@ -180,13 +180,13 @@
         <div class="font-bold text-2xl text-center md:text-left">
           <p>Kenali Author Terbaik Kami</p>
         </div>
-        <a href="register.html" class="bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-2 rounded-full text-white font-semibold mt-4 md:mt-0 h-fit hover:from-blue-700 hover:to-blue-600 transition">
-          Gabung Menjadi Author
+        <a href="{{ route('article.authors') }}" class="bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-2 rounded-full text-white font-semibold mt-4 md:mt-0 h-fit hover:from-blue-700 hover:to-blue-600 transition">
+          Lihat Semua Penulis
         </a>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         @foreach($authors as $author)
-        <a href="{{ url('/author/' . $author->id) }}">
+        <a href="{{ route('article.author', ['author' => $author->id]) }}">
           <div class="flex flex-col items-center border border-slate-200 px-4 py-8 rounded-2xl hover:border-primary hover:shadow-md transition duration-300 ease-in-out bg-white">
             @if($author->avatar)
               <img src="{{ asset('storage/' . $author->avatar) }}" alt="{{ $author->name }}" class="rounded-full w-24 h-24 object-cover border-4 border-blue-100">
@@ -213,7 +213,7 @@
       
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         @foreach($categories as $category)
-          <a href="{{ url('/articles/search?kategori=' . $category->slug) }}" 
+          <a href="{{ route('article.search', ['kategori' => $category->slug]) }}" 
             class="border border-slate-200 rounded-xl p-4 hover:border-primary hover:shadow-lg transition duration-300 ease-in-out bg-white">
             <div class="flex flex-col items-center text-center">
               <div class="bg-blue-100 rounded-full p-3 mb-3">

@@ -1,236 +1,664 @@
 @extends("layouts.default")
-@section("title","Selamat datang")
+@section("title","Tenaga Pendidik SMA Hogwarts")
 
 @section("main")
+<!-- Custom styles for animations and effects -->
+<style>
+  .hover-scale-image {
+    overflow: hidden;
+  }
+  
+  .hover-scale-image img {
+    transition: transform 0.8s ease;
+  }
+  
+  .hover-scale-image:hover img {
+    transform: scale(1.05);
+  }
+  
+  .teacher-card {
+    transition: all 0.3s ease;
+  }
+  
+  .teacher-card:hover {
+    transform: translateY(-8px);
+  }
+  
+  .department-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .filter-active {
+    background-color: #1e40af;
+    color: white;
+  }
+  
+  .reveal-animation {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-in-out;
+  }
+  
+  .reveal-animation.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+</style>
 
- <!--HERO SECTION-->
+<!--ENHANCED HERO SECTION-->
 <div class="relative overflow-hidden">
-  <!-- Enhanced gradient overlay with more pronounced blue tones -->
+  <!-- Enhanced gradient overlay with depth effect -->
   <div class="absolute inset-0 bg-gradient-to-b from-blue-950/90 via-blue-800/80 to-blue-600/60 z-10"></div>
   
+  <!-- Animated pattern overlay -->
+  <div class="absolute inset-0 z-10 opacity-10">
+    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"></div>
+  </div>
+  
+  <!-- Floating elements -->
+  <div class="absolute inset-0 z-10 overflow-hidden">
+    <div class="absolute top-24 left-[15%] w-16 h-16 bg-blue-400/20 rounded-full blur-xl float-animation"></div>
+    <div class="absolute top-40 right-[25%] w-20 h-20 bg-indigo-300/20 rounded-full blur-xl" style="animation: float 8s ease-in-out infinite;"></div>
+    <div class="absolute bottom-20 left-[30%] w-16 h-16 bg-blue-300/20 rounded-full blur-xl" style="animation: float 5s ease-in-out infinite;"></div>
+  </div>
+  
   <div class="w-full">
-    <!-- Added more blur for enhanced effect -->
-    <div class="w-full h-[400px] md:h-[500px] lg:h-[600px] bg-cover bg-center backdrop-blur-md" style="background-image: url('{{ asset('images/school-hero.jpg') }}');">
+    <!-- Background image with blur -->
+    <div class="w-full h-[300px] md:h-[400px] bg-cover bg-center backdrop-blur-sm" style="background-image: url('{{ asset('images/school-hero.jpg') }}');">
     </div>
   </div>
   
-  <!-- DAFTAR GURU Title -->
-  <div class="absolute inset-0 z-20 flex items-center">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-wider drop-shadow-lg ml-8 md:ml-16 lg:ml-24">DAFTAR GURU</h1>
+  <!-- Hero content with enhanced design -->
+  <div class="absolute inset-0 z-20 flex items-center px-6 sm:px-12 lg:px-24">
+    <div class="max-w-7xl mx-auto">
+      <!-- Decorative element -->
+      <div class="w-20 h-1.5 bg-white mb-6 rounded-full opacity-70"></div>
+      
+      <!-- Title with enhanced typography -->
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-wider drop-shadow-lg mb-4">
+        <span class="block">TENAGA PENDIDIK</span>
+      </h1>
+      
+      <p class="text-white/80 text-lg md:text-xl max-w-2xl mb-8">
+        Mengenal lebih dekat para guru berdedikasi yang membentuk generasi unggul di SMA Hogwarts
+      </p>
+      
+      <!-- Search bar -->
+      <div class="max-w-lg mt-6">
+        <div class="relative">
+          <input type="text" id="teacherSearch" placeholder="Cari guru atau mata pelajaran..." 
+                 class="w-full bg-white/20 backdrop-blur-md border border-white/30 rounded-full py-3 px-6 pl-12 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50">
+          <div class="absolute left-4 top-3.5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATISTICS BAR -->
+<div class="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-6 sticky top-0 z-30 shadow-lg">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+      <div class="flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <div>
+          <div class="text-2xl font-bold">26</div>
+          <div class="text-xs text-blue-200">Guru</div>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        <div>
+          <div class="text-2xl font-bold">8</div>
+          <div class="text-xs text-blue-200">Departemen</div>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+        </svg>
+        <div>
+          <div class="text-2xl font-bold">17</div>
+          <div class="text-xs text-blue-200">Mata Pelajaran</div>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg>
+        <div>
+          <div class="text-2xl font-bold">94%</div>
+          <div class="text-xs text-blue-200">Tersertifikasi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEPARTMENT QUICK NAVIGATION -->
+<div class="bg-gray-100 py-6 border-b border-gray-200 sticky top-[88px] z-20">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between">
+      <h2 class="text-lg font-bold text-gray-800">Departemen Guru</h2>
+      <div class="overflow-x-auto pb-2">
+        <div class="flex gap-2">
+          <button data-filter="all" class="filter-btn filter-active whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 text-sm font-medium transition-all">
+            Semua
+          </button>
+          <button data-filter="bahasa" class="filter-btn whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 text-sm font-medium transition-all">
+            Bahasa
+          </button>
+          <button data-filter="agama" class="filter-btn whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 text-sm font-medium transition-all">
+            Pendidikan Agama
+          </button>
+          <button data-filter="sosial" class="filter-btn whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 text-sm font-medium transition-all">
+            Ilmu Sosial & Ekonomi
+          </button>
+          <button data-filter="matematika" class="filter-btn whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 text-sm font-medium transition-all">
+            Matematika
+          </button>
+          <button data-filter="ipa" class="filter-btn whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 text-sm font-medium transition-all">
+            IPA
+          </button>
+          <button data-filter="ekonomi" class="filter-btn whitespace-nowrap px-4 py-2 rounded-full bg-gray-200 text-sm font-medium transition-all">
+            Seni & Olahraga
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- DAFTAR GURU CONTENT -->
-<div class="container max-w-7xl mx-auto px-4 py-10">
-  
-  <!-- BAHASA SECTION -->
-  <div class="mb-12">
-      <h2 class="text-2xl font-bold text-blue-800 mb-6 pb-2 border-b-2 border-blue-200">BAHASA</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <!-- Bahasa Indonesia -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/bahasa-indonesia.jpg') }}" alt="Guru Bahasa Indonesia" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Bapak Ahmad Suherman</h3>
-                  <p class="text-sm text-gray-600">Bahasa Indonesia</p>
-              </div>
-          </div>
-          
-          <!-- Bahasa Inggris -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/bahasa-inggris.jpg') }}" alt="Guru Bahasa Inggris" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Ibu Sarah Johnson</h3>
-                  <p class="text-sm text-gray-600">Bahasa Inggris</p>
-              </div>
-          </div>
-          
-          <!-- Bahasa Latin -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/bahasa-latin.jpg') }}" alt="Guru Bahasa Latin" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Bapak Marcus Aurelius</h3>
-                  <p class="text-sm text-gray-600">Bahasa Latin</p>
-              </div>
-          </div>
-      </div>
+<div class="container max-w-7xl mx-auto px-4 py-12">
+  <div class="max-w-3xl mx-auto text-center mb-16 reveal-animation">
+    <h2 class="text-3xl font-bold text-blue-900 mb-4">Tenaga Pendidik Berkualitas</h2>
+    <p class="text-gray-600">
+      SMA Hogwarts memiliki tim pengajar berdedikasi dengan pengalaman mengajar dan latar belakang akademis yang luas. 
+      Para guru kami berkomitmen untuk memberikan pendidikan berkualitas dan terus mengembangkan metode pembelajaran 
+      yang inovatif untuk memastikan siswa mencapai potensi terbaik mereka.
+    </p>
   </div>
-  
-  <!-- PENDIDIKAN AGAMA SECTION -->
-  <div class="mb-12">
-      <h2 class="text-2xl font-bold text-blue-800 mb-6 pb-2 border-b-2 border-blue-200">PENDIDIKAN AGAMA</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/agama.jpg') }}" alt="Guru Pendidikan Agama" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Bapak Haji Abdullah</h3>
-                  <p class="text-sm text-gray-600">Pendidikan Agama</p>
-              </div>
-          </div>
+
+  <!-- TEACHER GRID -->
+  <div id="teacherGrid">
+    <!-- BAHASA SECTION -->
+    <div class="mb-16 reveal-animation" data-department="bahasa">
+      <div class="flex items-center mb-8 pb-3 border-b border-blue-200">
+        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+          </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-blue-800">BAHASA</h2>
       </div>
-  </div>
-  
-  <!-- ILMU SOSIAL SECTION -->
-  <div class="mb-12">
-      <h2 class="text-2xl font-bold text-blue-800 mb-6 pb-2 border-b-2 border-blue-200">ILMU SOSIAL & KEWARGANEGARAAN</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <!-- PPKN -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/ppkn.jpg') }}" alt="Guru PPKN" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Ibu Kartini Wijaya</h3>
-                  <p class="text-sm text-gray-600">PPKN</p>
-              </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <!-- Bahasa Indonesia -->
+        <div class="teacher-card relative bg-white rounded-xl overflow-hidden shadow-lg stagger-item" data-tags="bahasa indonesia">
+          <div class="department-tag bg-blue-500">Bahasa</div>
+          <div class="hover-scale-image aspect-[4/5]">
+            <img src="{{ asset('images/teachers/bahasa-indonesia.jpg') }}" alt="Ahmad Suherman" class="w-full h-full object-cover">
           </div>
-          
-          <!-- Sejarah -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/sejarah.jpg') }}" alt="Guru Sejarah" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Bapak Sutomo Hadiwibowo</h3>
-                  <p class="text-sm text-gray-600">Sejarah</p>
-              </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-1">Ahmad Suherman</h3>
+            <p class="text-blue-600 font-medium mb-3">Bahasa Indonesia</p>
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span>8 tahun pengalaman</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">Ahli dalam sastra Indonesia dan teknik menulis kreatif. Fokus pada pengembangan kemampuan literasi siswa.</p>
+            <div class="flex justify-between pt-2 border-t border-gray-100">
+              <button class="text-blue-600 font-medium flex items-center text-sm hover:text-blue-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Kontak
+              </button>
+              <button class="text-blue-600 font-medium flex items-center text-sm hover:text-blue-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Profil
+              </button>
+            </div>
           </div>
-          
-          <!-- Penjasorkes -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/penjasorkes.jpg') }}" alt="Guru Penjasorkes" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Bapak Budi Santoso</h3>
-                  <p class="text-sm text-gray-600">Penjasorkes</p>
-              </div>
+        </div>
+        
+        <!-- Bahasa Inggris -->
+        <div class="teacher-card relative bg-white rounded-xl overflow-hidden shadow-lg stagger-item" data-tags="bahasa inggris english">
+          <div class="department-tag bg-blue-500">Bahasa</div>
+          <div class="hover-scale-image aspect-[4/5]">
+            <img src="{{ asset('images/teachers/bahasa-inggris.jpg') }}" alt="Sarah Johnson" class="w-full h-full object-cover">
           </div>
-          
-          <!-- Prakarya dan Kewirausahaan -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/prakarya.jpg') }}" alt="Guru Prakarya" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Ibu Dewi Pratama</h3>
-                  <p class="text-sm text-gray-600">Prakarya dan Kewirausahaan</p>
-              </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-1">Sarah Johnson</h3>
+            <p class="text-blue-600 font-medium mb-3">Bahasa Inggris</p>
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span>12 tahun pengalaman</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">Penutur asli dari Inggris dengan spesialisasi pengajaran untuk persiapan TOEFL dan IELTS. Cambridge certified teacher.</p>
+            <div class="flex justify-between pt-2 border-t border-gray-100">
+              <button class="text-blue-600 font-medium flex items-center text-sm hover:text-blue-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Kontak
+              </button>
+              <button class="text-blue-600 font-medium flex items-center text-sm hover:text-blue-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Profil
+              </button>
+            </div>
           </div>
-          
-          <!-- Seni Budaya dan Keterampilan -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/seni.jpg') }}" alt="Guru Seni" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Ibu Ratna Sari</h3>
-                  <p class="text-sm text-gray-600">Seni Budaya dan Keterampilan</p>
-              </div>
+        </div>
+        
+        <!-- Bahasa Latin -->
+        <div class="teacher-card relative bg-white rounded-xl overflow-hidden shadow-lg stagger-item" data-tags="bahasa latin klasik">
+          <div class="department-tag bg-blue-500">Bahasa</div>
+          <div class="hover-scale-image aspect-[4/5]">
+            <img src="{{ asset('images/teachers/bahasa-latin.jpg') }}" alt="Marcus Aurelius" class="w-full h-full object-cover">
           </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-1">Marcus Aurelius</h3>
+            <p class="text-blue-600 font-medium mb-3">Bahasa Latin</p>
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span>15 tahun pengalaman</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">Doktor filsafat dan ahli bahasa klasik. Mengajar pendekatan linguistik dan filosofis bahasa Latin dan pengaruhnya.</p>
+            <div class="flex justify-between pt-2 border-t border-gray-100">
+              <button class="text-blue-600 font-medium flex items-center text-sm hover:text-blue-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Kontak
+              </button>
+              <button class="text-blue-600 font-medium flex items-center text-sm hover:text-blue-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Profil
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-  </div>
-  
-  <!-- MATEMATIKA SECTION -->
-  <div class="mb-12">
-      <h2 class="text-2xl font-bold text-blue-800 mb-6 pb-2 border-b-2 border-blue-200">MATEMATIKA</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/matematika.jpg') }}" alt="Guru Matematika" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Bapak Dr. Adi Nugroho</h3>
-                  <p class="text-sm text-gray-600">Matematika</p>
-              </div>
-          </div>
+    </div>
+    
+    <!-- PENDIDIKAN AGAMA SECTION -->
+    <div class="mb-16 reveal-animation" data-department="agama">
+      <div class="flex items-center mb-8 pb-3 border-b border-blue-200">
+        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-green-800">PENDIDIKAN AGAMA</h2>
       </div>
-  </div>
-  
-  <!-- ILMU PENGETAHUAN ALAM SECTION -->
-  <div class="mb-12">
-      <h2 class="text-2xl font-bold text-blue-800 mb-6 pb-2 border-b-2 border-blue-200">ILMU PENGETAHUAN ALAM</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <!-- Biologi -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/biologi.jpg') }}" alt="Guru Biologi" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Ibu Dr. Siti Nurhayati</h3>
-                  <p class="text-sm text-gray-600">Biologi</p>
-              </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div class="teacher-card relative bg-white rounded-xl overflow-hidden shadow-lg stagger-item" data-tags="agama islam religious">
+          <div class="department-tag bg-green-500">Agama</div>
+          <div class="hover-scale-image aspect-[4/5]">
+            <img src="{{ asset('images/teachers/agama.jpg') }}" alt="Haji Abdullah" class="w-full h-full object-cover">
           </div>
-          
-          <!-- Fisika -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/fisika.jpg') }}" alt="Guru Fisika" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Bapak Prof. Hendra Wijaya</h3>
-                  <p class="text-sm text-gray-600">Fisika</p>
-              </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-1">H. Abdullah</h3>
+            <p class="text-green-600 font-medium mb-3">Pendidikan Agama Islam</p>
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span>20 tahun pengalaman</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">Alumnus Al-Azhar University, Kairo dengan fokus pada pengembangan nilai moral dan karakter dalam pendidikan keagamaan.</p>
+            <div class="flex justify-between pt-2 border-t border-gray-100">
+              <button class="text-green-600 font-medium flex items-center text-sm hover:text-green-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Kontak
+              </button>
+              <button class="text-green-600 font-medium flex items-center text-sm hover:text-green-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Profil
+              </button>
+            </div>
           </div>
-          
-          <!-- Kimia -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/kimia.jpg') }}" alt="Guru Kimia" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Ibu Dr. Lina Susanti</h3>
-                  <p class="text-sm text-gray-600">Kimia</p>
-              </div>
-          </div>
+        </div>
       </div>
-  </div>
-  
-  <!-- ILMU SOSIAL DAN EKONOMI SECTION -->
-  <div class="mb-12">
-      <h2 class="text-2xl font-bold text-blue-800 mb-6 pb-2 border-b-2 border-blue-200">ILMU SOSIAL DAN EKONOMI</h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <!-- Ekonomi -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/ekonomi.jpg') }}" alt="Guru Ekonomi" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Bapak Eko Prabowo</h3>
-                  <p class="text-sm text-gray-600">Ekonomi</p>
-              </div>
-          </div>
-          
-          <!-- Sosiologi -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/sosiologi.jpg') }}" alt="Guru Sosiologi" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Ibu Maya Indrawati</h3>
-                  <p class="text-sm text-gray-600">Sosiologi</p>
-              </div>
-          </div>
-          
-          <!-- Geografi -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-              <div class="aspect-square overflow-hidden">
-                  <img src="{{ asset('images/teachers/geografi.jpg') }}" alt="Guru Geografi" class="w-full h-full object-cover">
-              </div>
-              <div class="p-4 text-center">
-                  <h3 class="font-semibold">Bapak Gunawan Setiadi</h3>
-                  <p class="text-sm text-gray-600">Geografi</p>
-              </div>
-          </div>
+    </div>
+    
+    <!-- ILMU SOSIAL & KEWARGANEGARAAN SECTION -->
+    <div class="mb-16 reveal-animation" data-department="sosial">
+      <div class="flex items-center mb-8 pb-3 border-b border-blue-200">
+        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-purple-800">ILMU SOSIAL & KEWARGANEGARAAN</h2>
       </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <!-- PPKN -->
+        <div class="teacher-card relative bg-white rounded-xl overflow-hidden shadow-lg stagger-item" data-tags="ppkn kewarganegaraan">
+          <div class="department-tag bg-purple-500">Ilmu Sosial</div>
+          <div class="hover-scale-image aspect-[4/5]">
+            <img src="{{ asset('images/teachers/ppkn.jpg') }}" alt="Kartini Wijaya" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-1">Kartini Wijaya</h3>
+            <p class="text-purple-600 font-medium mb-3">PPKN</p>
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span>14 tahun pengalaman</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">Magister Hukum Tata Negara dengan fokus pada isu-isu kewarganegaraan kontemporer dan pendidikan karakter.</p>
+            <div class="flex justify-between pt-2 border-t border-gray-100">
+              <button class="text-purple-600 font-medium flex items-center text-sm hover:text-purple-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Kontak
+              </button>
+              <button class="text-purple-600 font-medium flex items-center text-sm hover:text-purple-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Profil
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sejarah -->
+        <div class="teacher-card relative bg-white rounded-xl overflow-hidden shadow-lg stagger-item" data-tags="sejarah history">
+          <div class="department-tag bg-purple-500">Ilmu Sosial</div>
+          <div class="hover-scale-image aspect-[4/5]">
+            <img src="{{ asset('images/teachers/sejarah.jpg') }}" alt="Sutomo Hadiwibowo" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-1">Sutomo Hadiwibowo</h3>
+            <p class="text-purple-600 font-medium mb-3">Sejarah</p>
+            <div class="flex items-center text-sm text-gray-500 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span>18 tahun pengalaman</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">Doktor Ilmu Sejarah dengan keahlian khusus sejarah Indonesia dan Asia Tenggara. Penulis beberapa buku teks sejarah.</p>
+            <div class="flex justify-between pt-2 border-t border-gray-100">
+              <button class="text-purple-600 font-medium flex items-center text-sm hover:text-purple-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Kontak
+              </button>
+              <button class="text-purple-600 font-medium flex items-center text-sm hover:text-purple-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Profil
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Geografi -->
+
+      </div>
+    </div>
+    <!-- MATEMATIKA SECTION -->
+    <!-- MIPA SECTION -->
+    <!-- EKONOMI SECTION -->
   </div>
 </div>
+
+<!-- Testimonial section -->
+<section class="bg-gradient-to-r from-blue-900 to-blue-800 py-16">
+  <div class="container max-w-6xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-white mb-2">Kata Kepala Sekolah</h2>
+      <p class="text-blue-100">Tentang tim pengajar kita</p>
+    </div>
+    
+    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 md:p-10">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <div class="md:w-1/4">
+          <div class="relative">
+            <div class="absolute inset-0 border-4 border-blue-400/30 rounded-full transform rotate-6"></div>
+            <img 
+              src="{{ asset('images/headmaster.jpg') }}" 
+              alt="Kepala Sekolah" 
+              class="relative z-10 rounded-full w-48 h-48 object-cover border-4 border-white/20"
+            >
+          </div>
+        </div>
+        <div class="md:w-3/4">
+          <svg class="h-12 w-12 text-blue-300/50 mb-6" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+          </svg>
+          <p class="text-xl font-light text-white mb-6">
+            "Tim pengajar di SMA Hogwarts adalah para profesional yang berdedikasi tinggi pada pendidikan. Mereka tidak hanya mengajar, 
+            tetapi juga menginspirasi siswa untuk mencapai potensi terbaik mereka. Dengan beragam keahlian dan pengalaman, mereka 
+            menciptakan lingkungan belajar yang mendukung perkembangan akademis dan karakter siswa."
+          </p>
+          <div>
+            <h4 class="text-lg font-bold text-white">Prof. Dr. Albus Dumbledore</h4>
+            <p class="text-blue-200">Kepala Sekolah SMA Hogwarts</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN OUR TEAM SECTION -->
+<section class="py-16 bg-gray-50">
+  <div class="container max-w-6xl mx-auto px-4">
+    <div class="flex flex-col md:flex-row gap-10 items-center">
+      <div class="md:w-1/2">
+        <h2 class="text-3xl font-bold text-blue-900 mb-4">Bergabung dengan Tim Pengajar Kami</h2>
+        <p class="text-gray-600 mb-6">
+          SMA Hogwarts selalu mencari pendidik berbakat dan berdedikasi untuk bergabung dengan komunitas kami. 
+          Kami menawarkan lingkungan kerja yang mendukung, pengembangan profesional berkelanjutan, dan 
+          kesempatan untuk membuat perbedaan nyata dalam kehidupan siswa.
+        </p>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start gap-3">
+            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900">Pengembangan Profesional</h4>
+              <p class="text-sm text-gray-600">Program pelatihan dan workshop berkelanjutan</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900">Fasilitas Modern</h4>
+              <p class="text-sm text-gray-600">Akses ke teknologi pendidikan terkini</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900">Kolaborasi Tim</h4>
+              <p class="text-sm text-gray-600">Komunitas guru yang saling mendukung</p>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="inline-flex items-center px-6 py-3 bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg transition">
+          Lihat Lowongan
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+      
+      <div class="md:w-1/2">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="aspect-square rounded-lg overflow-hidden">
+            <img src="{{ asset('images/teacher-collab-1.jpg') }}" alt="Collaboration" class="w-full h-full object-cover">
+          </div>
+          <div class="aspect-square rounded-lg overflow-hidden translate-y-6">
+            <img src="{{ asset('images/teacher-collab-2.jpg') }}" alt="Teaching" class="w-full h-full object-cover">
+          </div>
+          <div class="aspect-square rounded-lg overflow-hidden -translate-y-6">
+            <img src="{{ asset('images/teacher-collab-3.jpg') }}" alt="Workshop" class="w-full h-full object-cover">
+          </div>
+          <div class="aspect-square rounded-lg overflow-hidden">
+            <img src="{{ asset('images/teacher-collab-4.jpg') }}" alt="Research" class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Reveal animations on scroll
+  const revealElements = document.querySelectorAll('.reveal-animation');
+  const staggerItems = document.querySelectorAll('.stagger-item');
+  
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        
+        // If this is a parent that contains stagger items
+        if (entry.target.querySelectorAll('.stagger-item').length > 0) {
+          const staggerItems = entry.target.querySelectorAll('.stagger-item');
+          staggerItems.forEach((item, index) => {
+            setTimeout(() => {
+              item.style.transition = 'all 0.6s ease-out';
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            }, 100 * index);
+          });
+        }
+        
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+  
+  revealElements.forEach(el => {
+    revealObserver.observe(el);
+  });
+  
+  // Department filtering
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const teacherDepartments = document.querySelectorAll('[data-department]');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove active class from all buttons
+      filterButtons.forEach(btn => btn.classList.remove('filter-active'));
+      
+      // Add active class to clicked button
+      button.classList.add('filter-active');
+      
+      const filter = button.getAttribute('data-filter');
+      
+      if (filter === 'all') {
+        teacherDepartments.forEach(dept => {
+          dept.style.display = 'block';
+        });
+      } else {
+        teacherDepartments.forEach(dept => {
+          if (dept.getAttribute('data-department') === filter) {
+            dept.style.display = 'block';
+          } else {
+            dept.style.display = 'none';
+          }
+        });
+      }
+    });
+  });
+  
+  // Search functionality
+  const searchInput = document.getElementById('teacherSearch');
+  const teacherCards = document.querySelectorAll('.teacher-card');
+  
+  searchInput.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase().trim();
+    
+    teacherCards.forEach(card => {
+      const tags = card.getAttribute('data-tags').toLowerCase();
+      const teacherName = card.querySelector('h3').textContent.toLowerCase();
+      const subject = card.querySelector('p.text-blue-600, p.text-green-600, p.text-purple-600').textContent.toLowerCase();
+      
+      if (tags.includes(searchTerm) || teacherName.includes(searchTerm) || subject.includes(searchTerm)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
 @endsection
