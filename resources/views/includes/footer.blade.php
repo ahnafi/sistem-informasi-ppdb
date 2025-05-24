@@ -123,19 +123,19 @@
 
                 <div class="space-y-4">
                     <p>
-                        <a class="group inline-flex gap-x-2 text-blue-100 hover:text-blue-300 transition-colors duration-300 items-center" href="#">
+                        <a class="group inline-flex gap-x-2 text-blue-100 hover:text-blue-300 transition-colors duration-300 items-center" href="{{ route('home.academics') }}">
                             <span class="size-1.5 rounded-full bg-purple-500/70 group-hover:bg-purple-400 transition-colors"></span>
                             <span>Akademik</span>
                         </a>
                     </p>
                     <p>
-                        <a class="group inline-flex gap-x-2 text-blue-100 hover:text-blue-300 transition-colors duration-300 items-center" href="#">
+                        <a class="group inline-flex gap-x-2 text-blue-100 hover:text-blue-300 transition-colors duration-300 items-center" href="{{ route('home.studentaffairs') }}">
                             <span class="size-1.5 rounded-full bg-purple-500/70 group-hover:bg-purple-400 transition-colors"></span>
                             <span>Kesiswaan</span>
                         </a>
                     </p>
                     <p>
-                        <a class="group inline-flex gap-x-2 text-blue-100 hover:text-blue-300 transition-colors duration-300 items-center" href="#">
+                        <a class="group inline-flex gap-x-2 text-blue-100 hover:text-blue-300 transition-colors duration-300 items-center" href="{{ route('home.facility') }}">
                             <span class="size-1.5 rounded-full bg-purple-500/70 group-hover:bg-purple-400 transition-colors"></span>
                             <span>Fasilitas</span>
                         </a>

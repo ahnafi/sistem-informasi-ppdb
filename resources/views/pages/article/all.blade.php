@@ -1,131 +1,156 @@
 @extends('layouts.default')
 
-@section('main') 
-<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-  <!-- Title -->
-  <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-    <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">{{ $title }}</h2>
+@section('main')
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-16">
+  <div class="absolute inset-0 bg-black/20"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">{{ $title }}</h1>
+      <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
+        Temukan artikel terbaru dan informasi penting seputar pendidikan di SMA Hogwarts
+      </p>
+    </div>
   </div>
-  <!-- End Title -->
+</section>
 
-  <!-- Breadcrumb -->
-  <div class="flex mb-8">
-    <ol class="flex items-center overflow-hidden">
-      <li class="inline-flex items-center">
-        <a href="{{ route('home') }}" class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-hidden focus:text-blue-600 py-2 px-3 rounded-l-md">
-          Home
+<!-- Breadcrumb -->
+<nav class="bg-white shadow-sm border-b">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <ol class="flex items-center space-x-2 text-sm text-gray-600">
+      <li>
+        <a href="{{ route('home') }}" class="hover:text-blue-600 transition-colors">
+          <svg class="w-4 h-4 mr-1 inline" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+          </svg>
+          Beranda
         </a>
       </li>
-      <li class="inline-flex items-center">
-        <svg class="size-3 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m9 18 6-6-6-6"></path>
+      <li>
+        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
         </svg>
-        <a href="{{ route('article') }}" class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-hidden focus:text-blue-600 py-2 px-3">
-          Artikel
-        </a>
       </li>
-      <li class="inline-flex items-center">
-        <svg class="size-3 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m9 18 6-6-6-6"></path>
+      <li>
+        <a href="{{ route('article') }}" class="hover:text-blue-600 transition-colors">Artikel</a>
+      </li>
+      <li>
+        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
         </svg>
-        <span class="text-sm font-semibold text-gray-800 py-2 px-3 rounded-r-md" aria-current="page">
-          Semua Artikel
-        </span>
       </li>
+      <li class="text-gray-900 font-medium">Semua Artikel</li>
     </ol>
   </div>
-  <!-- End Breadcrumb -->
+</nav>
 
-  <!-- Grid -->
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    @foreach($articles as $article)
-      <!-- Card -->
-      <a class="group flex flex-col h-full border border-gray-200 hover:border-transparent hover:shadow-lg transition-all duration-300 rounded-xl p-5 dark:border-gray-700 dark:hover:border-transparent dark:hover:shadow-black/[.4]" href="{{ route('article.detail', $article) }}">
-        <div class="aspect-w-16 aspect-h-11 mb-4">
-          @if($article->image)
-            <img class="w-full h-40 object-cover rounded-xl" src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}">
-          @else
-            <div class="w-full h-40 bg-gray-200 rounded-xl flex items-center justify-center dark:bg-gray-800">
-              <svg class="w-10 h-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
+<!-- Main Content -->
+<main class="bg-gray-50 min-h-screen py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    @if($articles->count() > 0)
+      <!-- Articles Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach($articles as $article)
+          <article class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group">
+            <!-- Article Image -->
+            <div class="relative h-48 overflow-hidden">
+              @if($article->image)
+                <img 
+                  src="{{ asset('storage/' . $article->image) }}" 
+                  alt="{{ $article->title }}"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              @else
+                <div class="w-full h-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
+                  <svg class="w-12 h-12 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+                  </svg>
+                </div>
+              @endif
+              
+              <!-- Category Badge -->
+              <div class="absolute top-4 left-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-600 text-white shadow-sm">
+                  {{ $article->category?->title ?? 'Uncategorized' }}
+                </span>
+              </div>
             </div>
-          @endif
-        </div>
-        
-        <div class="my-4">
-          <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-300 dark:hover:text-white">
-            {{ $article->title }}
-          </h3>
-          <p class="mt-3 text-gray-600 dark:text-gray-400">
-            {{ Str::limit(strip_tags($article->content), 100) }}
-          </p>
-        </div>
-        
-        <div class="mt-auto flex items-center gap-x-3">
-          <span class="text-sm text-gray-500">
-            {{ $article->created_at->format('d M Y') }}
-          </span>
-          <span class="text-sm text-gray-500">|</span>
-          <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-            {{ $article->category->name ?? 'Uncategorized' }}
-          </span>
-        </div>
-      </a>
-      <!-- End Card -->
-    @endforeach
-  </div>
-  <!-- End Grid -->
-
-  <!-- Pagination -->
-  <div class="mt-12 flex justify-center">
-    @if ($articles->hasPages())
-      <nav class="flex items-center gap-x-1" aria-label="Pagination">
-        {{-- Previous Page Link --}}
-        @if ($articles->onFirstPage())
-          <button type="button" class="min-h-9.5 min-w-9.5 py-2 px-2.5 inline-flex justify-center items-center gap-x-1.5 text-sm first:rounded-s-lg last:rounded-e-lg border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" disabled aria-label="Previous">
-            <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m15 18-6-6 6-6"></path>
-            </svg>
-            <span class="hidden sm:block">Previous</span>
-          </button>
-        @else
-          <a href="{{ $articles->previousPageUrl() }}" class="min-h-9.5 min-w-9.5 py-2 px-2.5 inline-flex justify-center items-center gap-x-1.5 text-sm first:rounded-s-lg last:rounded-e-lg border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100" aria-label="Previous">
-            <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m15 18-6-6 6-6"></path>
-            </svg>
-            <span class="hidden sm:block">Previous</span>
-          </a>
-        @endif
-
-        {{-- Pagination Elements --}}
-        @foreach ($articles->getUrlRange(1, $articles->lastPage()) as $page => $url)
-          @if ($page == $articles->currentPage())
-            <button type="button" class="min-h-9.5 min-w-9.5 flex justify-center items-center bg-gray-200 text-gray-800 border border-gray-200 py-2 px-3 text-sm first:rounded-s-lg last:rounded-e-lg focus:outline-hidden focus:bg-gray-300 disabled:opacity-50 disabled:pointer-events-none" aria-current="page">{{ $page }}</button>
-          @else
-            <a href="{{ $url }}" class="min-h-9.5 min-w-9.5 flex justify-center items-center border border-gray-200 text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm first:rounded-s-lg last:rounded-e-lg focus:outline-hidden focus:bg-gray-100">{{ $page }}</a>
-          @endif
+            
+            <!-- Article Content -->
+            <div class="p-6">
+              <h2 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                <a href="{{ route('article.detail', $article) }}" class="hover:underline">
+                  {{ $article->title }}
+                </a>
+              </h2>
+              
+              <p class="text-gray-600 mb-4 line-clamp-3">
+                {{ Str::limit(strip_tags($article->content), 120) }}
+              </p>
+              
+              <!-- Article Meta -->
+              <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                <div class="flex items-center text-sm text-gray-500">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                  {{ $article->created_at->format('d M Y') }}
+                </div>
+                
+                <a 
+                  href="{{ route('article.detail', $article) }}" 
+                  class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm group-hover:translate-x-1 transition-all"
+                >
+                  Baca selengkapnya
+                  <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </article>
         @endforeach
-
-        {{-- Next Page Link --}}
-        @if ($articles->hasMorePages())
-          <a href="{{ $articles->nextPageUrl() }}" class="min-h-9.5 min-w-9.5 py-2 px-2.5 inline-flex justify-center items-center gap-x-1.5 text-sm first:rounded-s-lg last:rounded-e-lg border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100" aria-label="Next">
-            <span class="hidden sm:block">Next</span>
-            <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m9 18 6-6-6-6"></path>
-            </svg>
-          </a>
-        @else
-          <button type="button" class="min-h-9.5 min-w-9.5 py-2 px-2.5 inline-flex justify-center items-center gap-x-1.5 text-sm first:rounded-s-lg last:rounded-e-lg border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none" disabled aria-label="Next">
-            <span class="hidden sm:block">Next</span>
-            <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m9 18 6-6-6-6"></path>
-            </svg>
-          </button>
-        @endif
-      </nav>
+      </div>
+      
+      <!-- Pagination -->
+      @if($articles->hasPages())
+        <div class="mt-12 flex justify-center">
+          <div class="bg-white rounded-lg shadow-sm p-2">
+            {{ $articles->links() }}
+          </div>
+        </div>
+      @endif
+      
+    @else
+      <!-- Empty State -->
+      <div class="text-center py-16">
+        <svg class="w-24 h-24 text-gray-300 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Belum Ada Artikel</h3>
+        <p class="text-gray-600 max-w-md mx-auto">
+          Saat ini belum ada artikel yang tersedia. Silakan kembali lagi nanti untuk membaca artikel terbaru.
+        </p>
+      </div>
     @endif
   </div>
-  <!-- End Pagination -->
-</div>
+</main>
+
+<!-- Custom Styles -->
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
 @endsection

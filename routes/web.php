@@ -11,9 +11,13 @@ Route::get('/contact', [ProfileController::class, "contact"])->name('home.contac
 Route::get('/orgstructure', [ProfileController::class, "orgstructure"])->name('home.orgstructure');
 Route::get('/teachers', [ProfileController::class, "teachers"])->name('home.teachers');
 Route::post('/contact', [ProfileController::class, "sendContact"])->name('home.contact.send');
+Route::get('/facility', [ProfileController::class, "facility"])->name('home.facility');
+Route::get('/academics', [ProfileController::class, "academics"])->name('home.academics');
+Route::get('/student-affairs', [ProfileController::class, "studentaffairs"])->name('home.studentaffairs');
 
 Route::get('/registration', [RegistrationController::class, "index"])->name('registration');
 Route::post('/registration', [RegistrationController::class, "registration"])->name('registration.submit');
+Route::get('/registration/form', [RegistrationController::class, "form"])->name('registration.form');
 Route::get("/check", [RegistrationController::class, "check"])->name('registration.check');
 Route::get("/check/result", [RegistrationController::class, "checkResult"])->name('registration.check.result');
 

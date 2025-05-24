@@ -45,4 +45,14 @@ class RegistrationController extends Controller
         };
     }
 
+    public function form(): \Illuminate\Http\Response
+    {
+        return response()->view("pages.registration.form");
+    }
+    public function formStore(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        // logic to store the registration form data
+        return back()->with("success", "Form submitted successfully");
+    }
+
 }

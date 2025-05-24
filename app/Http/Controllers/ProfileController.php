@@ -33,4 +33,18 @@ class ProfileController extends Controller
     {
         return back()->with('success', 'Thanks for contacting us!');
     }
+
+    public function facility(): \Illuminate\Http\Response
+    {
+        return response()->view('pages.facility');
+    }
+
+    public function academics(): \Illuminate\Http\Response
+    {
+        return response()->view('pages.academics');
+    }
+    public function studentaffairs(): \Illuminate\Http\Response
+    {
+        return response()->view('pages.studentaffairs');
+    }
 }
