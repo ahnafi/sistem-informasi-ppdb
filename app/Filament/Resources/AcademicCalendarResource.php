@@ -6,6 +6,7 @@ use App\Filament\Resources\AcademicCalendarResource\Pages;
 use App\Filament\Resources\AcademicCalendarResource\RelationManagers;
 use App\Models\AcademicCalendar;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -18,16 +19,23 @@ class AcademicCalendarResource extends Resource
     protected static ?string $model = AcademicCalendar::class;
     protected static ?string $navigationLabel = "Kalender Akademik";
     protected static ?string $navigationGroup = "Manajemen Kalender Akademik";
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-calendar-days';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title'),
-                Forms\Components\KeyValue::make('agenda')
-                    ->keyLabel('Tanggal')
-                    ->valueLabel("kegiatan")
+                Forms\Components\TextInput::make('title')
+                    ->required(),
+                Repeater::make("agenda")
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required(),
+                        Forms\Components\KeyValue::make('calendar')
+                            ->keyLabel('Tanggal')
+                            ->valueLabel("kegiatan")
+                            ->columnSpanFull()
+                    ])
                     ->columnSpanFull()
             ]);
     }
@@ -36,13 +44,15 @@ class AcademicCalendarResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('title')
+                    ->label("judul"),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
