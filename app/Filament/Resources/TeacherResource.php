@@ -49,7 +49,19 @@ class TeacherResource extends Resource
                     ->required(),
                 Forms\Components\Textarea::make('address')
                     ->required(),
-                Forms\Components\Select::make('status')->options(['PNS', 'PPPK', 'GTY', 'Honorer', 'Kontrak Daerah', 'Kontrak Sekolah', 'Wiyata Bakti', 'Relawan']),
+                Forms\Components\Select::make('status')
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make("name")
+                            ->required(),
+                        Forms\Components\TextInput::make("base_salary")
+                            ->numeric()
+                            ->default(0)
+                            ->required()
+                    ])
+                    ->searchable()
+                    ->preload()
+                    ->relationship("status", "name")
+                    ->required(),
                 Forms\Components\Select::make('position')->options(['Kepala Sekolah', 'Wakil Kepala Sekolah', 'Guru BK', 'Guru Wali Kelas', 'Guru Pembina OSIS', 'Guru Staf', 'Guru Penggerak', 'Guru Ekstrakurikuler']),
                 Select::make('religion')->options([
                     "islam" => "Islam",

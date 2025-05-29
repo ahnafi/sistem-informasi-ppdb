@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Payroll extends Model
 {
-    protected array $fillable = [
+    use SoftDeletes;
+
+    protected $fillable = [
         "date",
         "payment_date",
         "base_salary",
