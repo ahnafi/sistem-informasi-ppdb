@@ -27,7 +27,6 @@ class PayrollResource extends Resource
             ->schema([
 
                 Forms\Components\Select::make('teacher_id')
-                    // mengambil base salary dari relasi teacher ke teacher status, ambil base salary nya. kemudian set di field ini
                     ->searchable()
                     ->preload()
                     ->relationship('teacher', 'name')
@@ -37,16 +36,6 @@ class PayrollResource extends Resource
                         $teacher = Teacher::find($state);
                         if ($teacher && $teacher->teacherStatus) {
                             $set('base_salary', $teacher->teacherStatus->base_salary);
-                        }
-                    })
-                    ->beforeSave(function ($state, callable $set) {
-                        $existingPayroll = Payroll::where('teacher_id', $state)
-                            ->whereMonth('date', now()->month)
-                            ->whereYear('date', now()->year)
-                            ->first();
-
-                        if ($existingPayroll) {
-                            throw new \Exception('Guru ini sudah digaji untuk bulan ini.');
                         }
                     }),
 
