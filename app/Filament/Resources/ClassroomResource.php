@@ -32,7 +32,7 @@ class ClassroomResource extends Resource
                             ->label('Nama Kelas')
                             ->required()
                             ->maxLength(255),
-                            
+
                         Forms\Components\Grid::make()
                             ->schema([
                                 Forms\Components\TextInput::make('academic_year')
@@ -40,21 +40,21 @@ class ClassroomResource extends Resource
                                     ->required()
                                     ->placeholder('2025/2026')
                                     ->maxLength(255),
-                                
+
                                 Forms\Components\TextInput::make('grade_level')
                                     ->label('Tingkat Kelas')
                                     ->required()
                                     ->placeholder('X / 10 / Kelas 10')
                                     ->maxLength(255),
                             ]),
-                            
+
                         Forms\Components\Grid::make()
                             ->schema([
                                 Forms\Components\TextInput::make('specialization')
                                     ->label('Jurusan/Peminatan')
                                     ->placeholder('IPA / IPS / Bahasa')
                                     ->maxLength(255),
-                                
+
                                 Forms\Components\TextInput::make('capacity')
                                     ->label('Kapasitas Kelas')
                                     ->numeric()
@@ -62,22 +62,22 @@ class ClassroomResource extends Resource
                                     ->minValue(1)
                                     ->required(),
                             ]),
-                            
+
                         Forms\Components\Select::make('homeroom_teacher_id')
                             ->label('Wali Kelas')
                             ->relationship('homeroomTeacher', 'name')
                             ->searchable()
                             ->preload(),
-                            
+
                         Forms\Components\TextInput::make('room')
                             ->label('Ruang Kelas')
                             ->maxLength(255),
-                            
+
                         Forms\Components\Textarea::make('description')
                             ->label('Deskripsi')
                             ->rows(3)
                             ->columnSpan('full'),
-                            
+
                         Forms\Components\Select::make('status')
                             ->label('Status')
                             ->options([
@@ -86,6 +86,15 @@ class ClassroomResource extends Resource
                             ])
                             ->default('active')
                             ->required(),
+
+                        Forms\Components\Select::make("students")
+                            ->multiple()
+                            ->searchable()
+                            ->relationship("students", "id") // Pastikan relasi dan kolom yang digunakan benar
+                            ->getOptionLabelFromRecordUsing(fn($record) => "{$record->nis} - {$record->name}") // Gunakan accessor atau format yang sesuai
+                            ->required()
+                            ->preload()
+
                     ])
                     ->columns(2),
             ]);
@@ -99,42 +108,42 @@ class ClassroomResource extends Resource
                     ->label('Nama Kelas')
                     ->searchable()
                     ->sortable(),
-                    
+
                 Tables\Columns\TextColumn::make('academic_year')
                     ->label('Tahun Ajaran')
                     ->searchable()
                     ->sortable(),
-                    
+
                 Tables\Columns\TextColumn::make('grade_level')
                     ->label('Tingkat Kelas')
                     ->searchable(),
-                    
+
                 Tables\Columns\TextColumn::make('specialization')
                     ->label('Jurusan')
                     ->searchable(),
-                    
+
                 Tables\Columns\TextColumn::make('homeroomTeacher.name')
                     ->label('Wali Kelas')
                     ->searchable(),
-                    
+
                 Tables\Columns\TextColumn::make('students_count')
                     ->label('Jumlah Siswa')
                     ->counts('students')
                     ->sortable(),
-                    
+
                 Tables\Columns\TextColumn::make('capacity')
                     ->label('Kapasitas')
                     ->sortable(),
-                    
+
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'active' => 'success',
                         'inactive' => 'danger',
                         default => 'gray',
                     }),
-                    
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime('d M Y')
@@ -144,22 +153,22 @@ class ClassroomResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('academic_year')
                     ->label('Tahun Ajaran')
-                    ->options(function() {
+                    ->options(function () {
                         return Classroom::distinct()->pluck('academic_year', 'academic_year')->toArray();
                     }),
-                    
+
                 Tables\Filters\SelectFilter::make('grade_level')
                     ->label('Tingkat')
-                    ->options(function() {
+                    ->options(function () {
                         return Classroom::distinct()->pluck('grade_level', 'grade_level')->toArray();
                     }),
-                    
+
                 Tables\Filters\SelectFilter::make('status')
                     ->options([
                         'active' => 'Aktif',
                         'inactive' => 'Tidak Aktif',
                     ]),
-                    
+
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
@@ -170,8 +179,8 @@ class ClassroomResource extends Resource
                     ->label('Kelola Siswa')
                     ->icon('heroicon-o-user-group')
                     ->color('success')
-                    ->modalHeading(fn (Classroom $record): string => "Penempatan Siswa: Kelas {$record->name}")
-                    ->modalDescription(fn (Classroom $record): string => "Kapasitas: {$record->students()->count()}/{$record->capacity} siswa")
+                    ->modalHeading(fn(Classroom $record): string => "Penempatan Siswa: Kelas {$record->name}")
+                    ->modalDescription(fn(Classroom $record): string => "Kapasitas: {$record->students()->count()}/{$record->capacity} siswa")
                     ->modalSubmitActionLabel('Simpan Perubahan')
                     ->form(function (Classroom $record) {
                         return [
@@ -185,7 +194,8 @@ class ClassroomResource extends Resource
                                                 ->placeholder('Nama, NIS, Email...')
                                                 ->live(debounce: 300)
                                                 ->afterStateUpdated(function ($state, $set) {
-                                                    $set('available_students', 
+                                                    $set(
+                                                        'available_students',
                                                         Student::whereNull('classroom_id')
                                                             ->where(function ($query) use ($state) {
                                                                 $query->where('name', 'like', "%{$state}%")
@@ -199,14 +209,14 @@ class ClassroomResource extends Resource
                                                             ->toArray()
                                                     );
                                                 }),
-                                                
+
                                             Forms\Components\CheckboxList::make('student_ids')
                                                 ->label('Siswa Tersedia')
                                                 ->options(function (callable $get) {
                                                     if ($get('search_available')) {
                                                         return $get('available_students') ?? [];
                                                     }
-                                                    
+
                                                     return Student::whereNull('classroom_id')
                                                         ->orderBy('name')
                                                         ->limit(50)
@@ -219,10 +229,10 @@ class ClassroomResource extends Resource
                                                 ->columns(1)
                                                 ->gridDirection('row')
                                                 ->helperText('Pilih siswa yang akan ditambahkan ke kelas ini'),
-                                                
+
                                             Forms\Components\Hidden::make('available_students'),
                                         ]),
-                                        
+
                                     Forms\Components\Tabs\Tab::make('Kelola Siswa Kelas')
                                         ->icon('heroicon-o-users')
                                         ->schema([
@@ -231,7 +241,8 @@ class ClassroomResource extends Resource
                                                 ->placeholder('Nama, NIS, Email...')
                                                 ->live(debounce: 300)
                                                 ->afterStateUpdated(function ($state, $set, Classroom $record) {
-                                                    $set('current_students', 
+                                                    $set(
+                                                        'current_students',
                                                         Student::where('classroom_id', $record->id)
                                                             ->where(function ($query) use ($state) {
                                                                 $query->where('name', 'like', "%{$state}%")
@@ -244,14 +255,14 @@ class ClassroomResource extends Resource
                                                             ->toArray()
                                                     );
                                                 }),
-                                                
+
                                             Forms\Components\CheckboxList::make('remove_student_ids')
                                                 ->label('Siswa dalam Kelas')
                                                 ->options(function (callable $get, Classroom $record) {
                                                     if ($get('search_current')) {
                                                         return $get('current_students') ?? [];
                                                     }
-                                                    
+
                                                     return Student::where('classroom_id', $record->id)
                                                         ->orderBy('name')
                                                         ->get()
@@ -263,7 +274,7 @@ class ClassroomResource extends Resource
                                                 ->columns(1)
                                                 ->gridDirection('row')
                                                 ->helperText('Centang siswa yang ingin dikeluarkan dari kelas ini'),
-                                                
+
                                             Forms\Components\Hidden::make('current_students'),
                                         ]),
                                 ])
@@ -273,44 +284,44 @@ class ClassroomResource extends Resource
                     ->action(function (array $data, Classroom $record): void {
                         $currentCount = $record->students()->count();
                         $availableCapacity = $record->capacity - $currentCount;
-                        
+
                         // Process adding students
                         $addCount = 0;
                         if (!empty($data['student_ids'])) {
                             $selectedToAdd = count($data['student_ids']);
-                            
+
                             if ($selectedToAdd > $availableCapacity) {
                                 Notification::make()
                                     ->title('Kapasitas Tidak Cukup')
                                     ->body("Hanya {$availableCapacity} siswa yang dapat ditambahkan ke kelas ini.")
                                     ->warning()
                                     ->send();
-                                    
+
                                 // Only add up to capacity
                                 $data['student_ids'] = array_slice($data['student_ids'], 0, $availableCapacity);
                             }
-                            
+
                             // Add students to class
                             Student::whereIn('id', $data['student_ids'])->update(['classroom_id' => $record->id]);
                             $addCount = count($data['student_ids']);
                         }
-                        
+
                         // Process removing students
                         $removeCount = 0;
                         if (!empty($data['remove_student_ids'])) {
                             Student::whereIn('id', $data['remove_student_ids'])->update(['classroom_id' => null]);
                             $removeCount = count($data['remove_student_ids']);
                         }
-                        
+
                         $message = [];
                         if ($addCount > 0) {
                             $message[] = "{$addCount} siswa ditambahkan ke kelas";
                         }
-                        
+
                         if ($removeCount > 0) {
                             $message[] = "{$removeCount} siswa dikeluarkan dari kelas";
                         }
-                        
+
                         if (!empty($message)) {
                             Notification::make()
                                 ->title('Berhasil')

@@ -26,8 +26,14 @@ class Student extends Model
     /**
      * Get the classroom this student belongs to
      */
-    public function classroom()
+    public function classroom(): BelongsTo
     {
         return $this->belongsTo(Classroom::class);
     }
+
+    public function getDisplayNameAttribute(): string
+    {
+        return "{$this->nis} - {$this->name}";
+    }
+
 }

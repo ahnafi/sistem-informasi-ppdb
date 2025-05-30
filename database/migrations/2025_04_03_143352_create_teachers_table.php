@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->enum('gender', ["male", "female"]);
             $table->date('date_of_birth');
             $table->text('address');
-            $table->enum('status', ['PNS', 'PPPK', 'GTY', 'Honorer', 'Kontrak Daerah', 'Kontrak Sekolah', 'Wiyata Bakti', 'Relawan'])->nullable();
+            // $table->enum('status', ['PNS', 'PPPK', 'GTY', 'Honorer', 'Kontrak Daerah', 'Kontrak Sekolah', 'Wiyata Bakti', 'Relawan'])->nullable();
             $table->enum('position', ['Kepala Sekolah', 'Wakil Kepala Sekolah', 'Guru BK', 'Guru Wali Kelas', 'Guru Pembina OSIS', 'Guru Staf', 'Guru Penggerak', 'Guru Ekstrakurikuler'])->nullable();
             $table->string('photo')->nullable();
             $table->enum('religion', ["islam", "hindu", "buddha", "konghucu", "Catholic", "Protestant", "other"])->nullable();

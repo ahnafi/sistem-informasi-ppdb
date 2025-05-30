@@ -14,11 +14,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             ArticleSeeder::class,
+            TeacherStatusSeeder::class,
             TeacherSeeder::class,
             RegistrationAndStudentSeeder::class,
             ClassroomSeeder::class,
         ]);
-        
+
         \App\Models\Category::factory(5)->create();
         \App\Models\Author::factory(3)->create();
         \App\Models\Article::factory(20)->create()->each(function ($article) {
