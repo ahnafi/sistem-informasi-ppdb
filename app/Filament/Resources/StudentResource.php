@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource\RelationManagers;
 use App\Models\Student;
+use App\Models\Classroom;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -13,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Collection;
 
 class StudentResource extends Resource
 {
@@ -24,13 +26,12 @@ class StudentResource extends Resource
     {
         return $form
             ->schema([
-
                 Forms\Components\Select::make('registration_id')
                     ->relationship('registration', 'name')
                     ->searchable()
                     ->live()
                     ->reactive()
-                    ->afterStateUpdated(function ($state, Forms\Set $set) {
+                    ->afterStateUpdated(function ($state, callable $set) {
                         $registration = \App\Models\Registration::with('student')->find($state);
 
                         if (!$registration) return;
@@ -61,7 +62,6 @@ class StudentResource extends Resource
                     })
                     ->required(),
 
-
                 Forms\Components\TextInput::make('nis')
                     ->required()
                     ->maxLength(255)
@@ -75,6 +75,13 @@ class StudentResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
+
+                // Add the classroom selector
+                Forms\Components\Select::make('classroom_id')
+                    ->label('Kelas')
+                    ->relationship('classroom', 'name')
+                    ->searchable()
+                    ->preload(),
 
                 Forms\Components\FileUpload::make('avatar')
                     ->avatar()

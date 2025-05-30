@@ -9,9 +9,19 @@ class ProfileController extends Controller
         return response()->view('pages.home');
     }
 
-    public function about(): \Illuminate\Http\Response
+    public function profile(): \Illuminate\Http\Response
     {
-        return response()->view('pages.about');
+        return response()->view('pages.profile');
+    }
+
+    public function orgstructure(): \Illuminate\Http\Response
+    {
+        return response()->view('pages.orgstructure');
+    }
+
+    public function teachers(): \Illuminate\Http\Response
+    {
+        return response()->view('pages.teachers');
     }
 
     public function contact(): \Illuminate\Http\Response
@@ -22,5 +32,19 @@ class ProfileController extends Controller
     public function sendContact(): \Illuminate\Http\RedirectResponse
     {
         return back()->with('success', 'Thanks for contacting us!');
+    }
+
+    public function facility(): \Illuminate\Http\Response
+    {
+        return response()->view('pages.facility');
+    }
+
+    public function academics(): \Illuminate\Http\Response
+    {
+        return response()->view('pages.academics');
+    }
+    public function studentaffairs(): \Illuminate\Http\Response
+    {
+        return response()->view('pages.studentaffairs');
     }
 }

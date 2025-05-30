@@ -36,4 +36,11 @@ class Article extends Model
     {
         return $this->hasOne(Banner::class);
     }
+
+    public function getContentAttribute($value)
+    {
+        // Proses konten jika diperlukan
+        // Misalnya, jika ada format khusus dari editor Trix yang perlu dikonversi
+        return $value;
+    }
 }
