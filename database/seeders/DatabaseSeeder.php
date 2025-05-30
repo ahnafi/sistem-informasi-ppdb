@@ -13,11 +13,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        
+        \App\Models\Category::factory(5)->create();
+        \App\Models\Author::factory(3)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        \App\Models\Article::factory(20)->create()->each(function ($article) {
+            if ($article->is_featured) {
+                \App\Models\Banner::factory()->create([
+                    'article_id' => $article->id
+                ]);
+            }
+        });
     }
 }
