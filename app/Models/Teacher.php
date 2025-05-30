@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Teacher extends Model
@@ -38,7 +37,7 @@ class Teacher extends Model
     {
         return $this->hasMany(Classroom::class, 'homeroom_teacher_id');
     }
-    
+
     public function status(): BelongsTo
     {
         return $this->belongsTo(TeacherStatus::class);
