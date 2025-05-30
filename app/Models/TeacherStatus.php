@@ -2,23 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Author extends Model
+class TeacherStatus extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         "name",
-        "avatar",
-        "bio"
+        "base_salary"
     ];
 
-    public function articles(): HasMany
+    public function teachers(): HasMany
     {
-        return $this->hasMany(Article::class);
+        return $this->hasMany(Teacher::class);
     }
 }
