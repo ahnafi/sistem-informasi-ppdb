@@ -17,7 +17,7 @@
   </div>
   
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-    <div class="text-center mb-12">
+    <div class="text-center my-12">
       <h1 class="text-4xl md:text-6xl font-bold mb-6">
         Artikel & Berita
         <span class="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Terkini</span>

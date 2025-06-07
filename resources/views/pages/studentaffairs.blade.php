@@ -51,11 +51,11 @@
   </div>
   
   <!-- Organization level indicators -->
-  <div class="absolute bottom-0 left-0 right-0 z-20 py-3 bg-gradient-to-r from-indigo-900/80 via-blue-800/90 to-indigo-900/80 backdrop-blur-sm">
+  {{-- <div class="absolute bottom-0 left-0 right-0 z-20 py-3 bg-gradient-to-r from-indigo-900/80 via-blue-800/90 to-indigo-900/80 backdrop-blur-sm">
     <div class="max-w-7xl mx-auto h-full flex flex-wrap items-center justify-between px-6 gap-y-2">
       
     </div>
-  </div>
+  </div> --}}
 </div>
 
 <!-- Coordinator's Introduction Section -->

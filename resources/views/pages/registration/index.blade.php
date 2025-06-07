@@ -50,10 +50,10 @@
             </div>
         </div>
         
-        <div class="absolute bottom-0 left-0 right-0 z-20 py-3 bg-gradient-to-r from-indigo-900/80 via-blue-800/90 to-indigo-900/80 backdrop-blur-sm">
+        {{-- <div class="absolute bottom-0 left-0 right-0 z-20 py-3 bg-gradient-to-r from-indigo-900/80 via-blue-800/90 to-indigo-900/80 backdrop-blur-sm">
             <div class="max-w-7xl mx-auto h-full flex flex-wrap items-center justify-center px-6 gap-8">
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <!-- Registration Steps Section -->
@@ -186,7 +186,7 @@
             Segera daftarkan diri Anda untuk menjadi bagian dari keluarga besar SMA Hogwarts.
         </p>
         
-        <a href="{{ route('registration.check') }}" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-full shadow-lg hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300">
+        <a href="{{ route('registration.form') }}" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-full shadow-lg hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300">
             <span class="mr-2">Daftar</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />

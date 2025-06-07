@@ -41,20 +41,20 @@
     <div class="max-w-7xl mx-auto">
       <!-- Magical divider -->
       <div class="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 mb-6 rounded-full animate-pulse"></div>
-      
+       
       <!-- Title -->
-      <h1 class="magical-text text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-4">
+      <h1 class="magical-text text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-4 text-white">
         FASILITAS SEKOLAH
       </h1>
     </div>
   </div>
   
   <!-- Organization level indicators -->
-  <div class="absolute bottom-0 left-0 right-0 z-20 py-3 bg-gradient-to-r from-indigo-900/80 via-blue-800/90 to-indigo-900/80 backdrop-blur-sm">
+  {{-- <div class="absolute bottom-0 left-0 right-0 z-20 py-3 bg-gradient-to-r from-indigo-900/80 via-blue-800/90 to-indigo-900/80 backdrop-blur-sm">
     <div class="max-w-7xl mx-auto h-full flex flex-wrap items-center justify-between px-6 gap-y-2">
       
     </div>
-  </div>
+  </div> --}}
 </div>
 
 <!-- Coordinator's Introduction Section -->

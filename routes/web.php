@@ -14,10 +14,11 @@ Route::post('/contact', [ProfileController::class, "sendContact"])->name('home.c
 Route::get('/facility', [ProfileController::class, "facility"])->name('home.facility');
 Route::get('/academics', [ProfileController::class, "academics"])->name('home.academics');
 Route::get('/student-affairs', [ProfileController::class, "studentaffairs"])->name('home.studentaffairs');
+Route::get('/calendar-academics', [ProfileController::class, "calendar"])->name('home.calendar.academic');
 
 Route::get('/registration', [RegistrationController::class, "index"])->name('registration');
-Route::post('/registration', [RegistrationController::class, "registration"])->name('registration.submit');
 Route::get('/registration/form', [RegistrationController::class, "form"])->name('registration.form');
+Route::post('/registration/form', [RegistrationController::class, "formStore"])->name('registration.submit');
 Route::get("/check", [RegistrationController::class, "check"])->name('registration.check');
 Route::get("/check/result", [RegistrationController::class, "checkResult"])->name('registration.check.result');
 

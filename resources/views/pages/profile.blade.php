@@ -168,10 +168,10 @@
   </div>
   
   <!-- Organization level indicators/bottom bar -->
-  <div class="absolute bottom-0 left-0 right-0 z-20 py-3 bg-gradient-to-r from-indigo-900/80 via-blue-800/90 to-indigo-900/80 backdrop-blur-sm">
+  {{-- <div class="absolute bottom-0 left-0 right-0 z-20 py-3 bg-gradient-to-r from-indigo-900/80 via-blue-800/90 to-indigo-900/80 backdrop-blur-sm">
     <div class="max-w-7xl mx-auto h-full flex flex-wrap items-center justify-center px-6 gap-4">
     </div>
-  </div>
+  </div> --}}
 </div>
 
 <!-- ABOUT SECTION: HOGWARTS HERITAGE -->
@@ -420,7 +420,7 @@
                     </div>
                     
                     <!-- Progress bars showing implementation of mission -->
-                    <div class="space-y-6 mt-10">
+                    {{-- <div class="space-y-6 mt-10">
                         <div>
                             <div class="flex justify-between mb-1">
                                 <span class="text-gray-700 font-medium">Pembelajaran Aktif</span>
@@ -457,7 +457,7 @@
                                 <div class="bg-cyan-500 h-2.5 rounded-full" style="width: 95%"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
