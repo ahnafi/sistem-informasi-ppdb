@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Registration extends Model
 {
-    use softDeletes;
+    use SoftDeletes; // Fixed capitalization
 
     protected $fillable = [
         "email",
@@ -44,6 +44,12 @@ class Registration extends Model
     public function studentParents(): HasMany
     {
         return $this->hasMany(StudentParent::class);
+    }
+
+    // Keep the existing parents() method as an alias
+    public function parents(): HasMany
+    {
+        return $this->studentParents();
     }
 
     public function student(): HasOne

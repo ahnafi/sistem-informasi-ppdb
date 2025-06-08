@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudentParent extends Model
 {
-    use softDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         "type",
@@ -17,11 +17,12 @@ class StudentParent extends Model
         "village_district_province",
         "address",
         "job",
+        "education", // Missing field
         "income",
         "registration_id"
     ];
 
-    public function registration():BelongsTo
+    public function registration(): BelongsTo
     {
         return $this->belongsTo(Registration::class);
     }

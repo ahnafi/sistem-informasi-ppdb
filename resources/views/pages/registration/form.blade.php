@@ -28,7 +28,29 @@
 
         <!-- Form Container -->
         <div class="w-full max-w-6xl mx-auto px-4 space-y-8 py-12">
-            <form id="registrationForm" action="{{ route('registration') }}" method="POST" class="space-y-8">
+            @if(session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <ul class="list-disc list-inside">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form id="registrationForm" action="{{ route('registration.submit') }}" method="POST" class="space-y-8">
                 @csrf
 
                 <!-- First Form Section -->
@@ -46,10 +68,10 @@
                         <div class="space-y-5">
                             <!-- Nama Lengkap -->
                             <div class="space-y-2">
-                                <label for="nama_lengkap"
+                                <label for="name"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Nama
                                     Lengkap*</label>
-                                <input type="text" id="nama_lengkap" name="nama_lengkap" required
+                                <input type="text" id="name" name="name" required
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Masukkan nama lengkap">
                             </div>
@@ -61,44 +83,44 @@
                                 <select id="gender" name="gender" required
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                                     <option value="">Pilih opsi</option>
-                                    <option value="L">Laki-laki</option>
-                                    <option value="P">Perempuan</option>
+                                    <option value="male">Laki-laki</option>
+                                    <option value="female">Perempuan</option>
                                 </select>
                             </div>
 
                             <!-- Tempat Lahir -->
                             <div class="space-y-2">
-                                <label for="tempat_lahir"
+                                <label for="place_of_birth"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Tempat
                                     Lahir*</label>
-                                <input type="text" id="tempat_lahir" name="tempat_lahir" required
+                                <input type="text" id="place_of_birth" name="place_of_birth" required
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Masukkan tempat lahir">
                             </div>
 
                             <!-- Tanggal Lahir -->
                             <div class="space-y-2">
-                                <label for="tanggal_lahir"
+                                <label for="date_of_birth"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Tanggal
                                     Lahir*</label>
-                                <input type="date" id="tanggal_lahir" name="tanggal_lahir" required
+                                <input type="date" id="date_of_birth" name="date_of_birth" required
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             </div>
 
                             <!-- Alamat -->
                             <div class="space-y-2">
-                                <label for="alamat"
+                                <label for="address"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Alamat*</label>
-                                <textarea id="alamat" name="alamat" required rows="2"
+                                <textarea id="address" name="address" required rows="2"
                                     class="w-full px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                                     placeholder="Masukkan alamat lengkap"></textarea>
                             </div>
 
                             <!-- Provinsi/Kabupaten/Kecamatan/Desa -->
                             <div class="space-y-2">
-                                <label for="wilayah"
+                                <label for="village_district_province"
                                     class="block text-base font-semibold leading-6 tracking-wider text-gray-800 font-inter">Prov/Kab/Kec/Desa*</label>
-                                <input type="text" id="wilayah" name="wilayah" required
+                                <input type="text" id="village_district_province" name="village_district_province" required
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Contoh: Jawa Barat, Bandung, Coblong, Dago">
                             </div>
@@ -126,43 +148,42 @@
 
                             <!-- No Telepon -->
                             <div class="space-y-2">
-                                <label for="no_telepon"
+                                <label for="phone"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">No
                                     Telepon*</label>
-                                <input type="tel" id="no_telepon" name="no_telepon" required pattern="[0-9]{10,13}"
+                                <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,13}"
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="08xxxxxxxxxx">
                             </div>
 
                             <!-- Asal Sekolah -->
                             <div class="space-y-2">
-                                <label for="asal_sekolah"
+                                <label for="origin_school"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Asal
                                     Sekolah*</label>
-                                <input type="text" id="asal_sekolah" name="asal_sekolah" required
+                                <input type="text" id="origin_school" name="origin_school" required
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Nama sekolah asal">
                             </div>
 
                             <!-- Jenis Sekolah -->
                             <div class="space-y-2">
-                                <label for="jenis_sekolah"
+                                <label for="school_type"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Jenis
                                     Sekolah*</label>
-                                <select id="jenis_sekolah" name="jenis_sekolah" required
+                                <select id="school_type" name="school_type" required
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                                     <option value="">Pilih opsi</option>
-                                    <option value="SMP">SMP</option>
-                                    <option value="MTs">MTs</option>
-                                    <option value="Sederajat">Sederajat</option>
+                                    <option value="public">Negeri</option>
+                                    <option value="private">Swasta</option>
                                 </select>
                             </div>
 
                             <!-- Informasi -->
                             <div class="space-y-2">
-                                <label for="informasi"
+                                <label for="information"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Informasi*</label>
-                                <textarea id="informasi" name="informasi" required rows="2"
+                                <textarea id="information" name="information" required rows="2"
                                     class="w-full px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                                     placeholder="Informasi tambahan atau motivasi mendaftar"></textarea>
                             </div>
@@ -193,67 +214,60 @@
                         <div class="space-y-5">
                             <!-- Agama -->
                             <div class="space-y-2">
-                                <label for="agama"
+                                <label for="religion"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Agama*</label>
-                                <select id="agama" name="agama" required
+                                <select id="religion" name="periodic[religion]" required
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                                     <option value="">Pilih opsi</option>
-                                    <option value="Islam">Islam</option>
-                                    <option value="Kristen">Kristen</option>
-                                    <option value="Katolik">Katolik</option>
-                                    <option value="Hindu">Hindu</option>
-                                    <option value="Buddha">Buddha</option>
-                                    <option value="Konghucu">Konghucu</option>
+                                    <option value="islam">Islam</option>
+                                    <option value="Protestant">Kristen</option>
+                                    <option value="Catholic">Katolik</option>
+                                    <option value="hindu">Hindu</option>
+                                    <option value="buddha">Buddha</option>
+                                    <option value="konghucu">Konghucu</option>
                                 </select>
                             </div>
 
                             <!-- Tempat Tinggal -->
                             <div class="space-y-2">
-                                <label for="tempat_tinggal"
+                                <label for="residence"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Tempat
                                     Tinggal*</label>
-                                <select id="tempat_tinggal" name="tempat_tinggal" required
-                                    class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
-                                    <option value="">Pilih opsi</option>
-                                    <option value="Bersama Orang Tua">Bersama Orang Tua</option>
-                                    <option value="Wali">Wali</option>
-                                    <option value="Kost">Kost</option>
-                                    <option value="Asrama">Asrama</option>
-                                    <option value="Panti Asuhan">Panti Asuhan</option>
-                                </select>
+                                <input type="text" id="residence" name="periodic[residence]" required
+                                    class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="Contoh: Bersama Orang Tua">
                             </div>
 
                             <!-- Jarak Rumah ke Sekolah -->
                             <div class="space-y-2">
-                                <label for="jarak_rumah"
+                                <label for="home_distance"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Jarak
                                     Rumah ke Sekolah (km)*</label>
-                                <input type="number" id="jarak_rumah" name="jarak_rumah" required min="0" step="0.1"
+                                <input type="number" id="home_distance" name="periodic[home_distance]" required min="0" step="0.1"
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Contoh: 5.5">
                             </div>
 
                             <!-- Waktu Tempuh -->
                             <div class="space-y-2">
-                                <label for="waktu_tempuh"
+                                <label for="travel_time"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Waktu
                                     Tempuh (menit)*</label>
-                                <input type="number" id="waktu_tempuh" name="waktu_tempuh" required min="0"
+                                <input type="number" id="travel_time" name="periodic[travel_time]" required min="0"
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Contoh: 30">
                             </div>
 
                             <!-- Status Anak -->
                             <div class="space-y-2">
-                                <label for="status_anak"
+                                <label for="child_status"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Status
                                     Anak*</label>
-                                <select id="status_anak" name="status_anak" required
+                                <select id="child_status" name="periodic[child_status]" required
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                                     <option value="">Pilih opsi</option>
-                                    <option value="Anak Kandung">Anak Kandung</option>
-                                    <option value="Anak Tiri">Anak Tiri</option>
-                                    <option value="Anak Angkat">Anak Angkat</option>
+                                    <option value="biological">Anak Kandung</option>
+                                    <option value="adopted">Anak Angkat</option>
                                 </select>
                             </div>
                         </div>
@@ -262,55 +276,52 @@
                         <div class="space-y-5">
                             <!-- Anak Ke -->
                             <div class="space-y-2">
-                                <label for="anak_ke"
+                                <label for="child_order"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Anak
                                     Ke*</label>
-                                <input type="number" id="anak_ke" name="anak_ke" required min="1"
+                                <input type="number" id="child_order" name="periodic[child_order]" required min="1"
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Contoh: 1">
                             </div>
 
                             <!-- Jumlah Saudara Kandung -->
                             <div class="space-y-2">
-                                <label for="jumlah_saudara"
+                                <label for="siblings"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Jumlah
                                     Saudara Kandung*</label>
-                                <input type="number" id="jumlah_saudara" name="jumlah_saudara" required min="0"
+                                <input type="number" id="siblings" name="periodic[siblings]" required min="0"
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Contoh: 2">
                             </div>
 
                             <!-- Berat Badan -->
                             <div class="space-y-2">
-                                <label for="berat_badan"
+                                <label for="weight"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Berat
                                     Badan (kg)*</label>
-                                <input type="number" id="berat_badan" name="berat_badan" required min="20" max="200"
+                                <input type="number" id="weight" name="periodic[weight]" required min="20" max="200"
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Contoh: 55">
                             </div>
 
                             <!-- Tinggi Badan -->
                             <div class="space-y-2">
-                                <label for="tinggi_badan"
+                                <label for="height"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Tinggi
                                     Badan (cm)*</label>
-                                <input type="number" id="tinggi_badan" name="tinggi_badan" required min="100" max="250"
+                                <input type="number" id="height" name="periodic[height]" required min="100" max="250"
                                     class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                     placeholder="Contoh: 165">
                             </div>
 
                             <!-- Pernah mengalami penyakit serius -->
                             <div class="space-y-2">
-                                <label for="penyakit_serius"
+                                <label for="medical_history"
                                     class="block text-base font-semibold leading-6 tracking-wider text-black font-inter">Pernah
                                     mengalami penyakit serius?*</label>
-                                <select id="penyakit_serius" name="penyakit_serius" required
-                                    class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
-                                    <option value="">Pilih opsi</option>
-                                    <option value="Ya">Ya</option>
-                                    <option value="Tidak">Tidak</option>
-                                </select>
+                                <input type="text" id="medical_history" name="periodic[medical_history]" required
+                                    class="w-full h-13 px-3 py-2 bg-white border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="Contoh: Tidak ada / Asma">
                             </div>
                         </div>
                     </div>
@@ -349,15 +360,16 @@
                                     <label for="nama_ayah"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Nama
                                         Ayah*</label>
-                                    <input type="text" id="nama_ayah" name="nama_ayah" required
+                                    <input type="text" id="nama_ayah" name="parents[0][name]" required
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="Masukkan nama ayah">
+                                    <input type="hidden" name="parents[0][type]" value="father">
                                 </div>
 
                                 <div class="space-y-2">
                                     <label for="pekerjaan_ayah"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Pekerjaan*</label>
-                                    <input type="text" id="pekerjaan_ayah" name="pekerjaan_ayah" required
+                                    <input type="text" id="pekerjaan_ayah" name="parents[0][job]" required
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="Masukkan pekerjaan">
                                 </div>
@@ -365,24 +377,16 @@
                                 <div class="space-y-2">
                                     <label for="pendidikan_ayah"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Pendidikan*</label>
-                                    <select id="pendidikan_ayah" name="pendidikan_ayah" required
-                                        class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
-                                        <option value="">Pilih pendidikan</option>
-                                        <option value="SD">SD</option>
-                                        <option value="SMP">SMP</option>
-                                        <option value="SMA">SMA</option>
-                                        <option value="D3">D3</option>
-                                        <option value="S1">S1</option>
-                                        <option value="S2">S2</option>
-                                        <option value="S3">S3</option>
-                                    </select>
+                                    <input type="text" id="pendidikan_ayah" name="parents[0][education]" required
+                                        class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        placeholder="Contoh: S1">
                                 </div>
 
                                 <div class="space-y-2">
                                     <label for="no_hp_ayah"
                                         class="block text-base font-semibold leading-6 text-black font-inter">No.
                                         HP*</label>
-                                    <input type="tel" id="no_hp_ayah" name="no_hp_ayah" required pattern="[0-9]{10,13}"
+                                    <input type="tel" id="no_hp_ayah" name="parents[0][phone]" required pattern="[0-9]{10,13}"
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="08xxxxxxxxxx">
                                 </div>
@@ -393,7 +397,7 @@
                                 <div class="space-y-2">
                                     <label for="alamat_ayah"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Alamat*</label>
-                                    <textarea id="alamat_ayah" name="alamat_ayah" required rows="2"
+                                    <textarea id="alamat_ayah" name="parents[0][address]" required rows="2"
                                         class="w-full px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                                         placeholder="Masukkan alamat"></textarea>
                                 </div>
@@ -402,15 +406,15 @@
                                     <label for="penghasilan_ayah"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Penghasilan
                                         per Bulan*</label>
-                                    <select id="penghasilan_ayah" name="penghasilan_ayah" required
+                                    <select id="penghasilan_ayah" name="parents[0][income]" required
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                                         <option value="">Pilih opsi</option>
-                                        <option value="< 1 juta">
-                                            < 1 juta</option>
-                                        <option value="1-3 juta">1-3 juta</option>
-                                        <option value="3-5 juta">3-5 juta</option>
-                                        <option value="5-10 juta">5-10 juta</option>
-                                        <option value="> 10 juta">> 10 juta</option>
+                                        <option value="<1">< 1 juta</option>
+                                        <option value="1-2">1-2 juta</option>
+                                        <option value="2-3">2-3 juta</option>
+                                        <option value="3-4">3-4 juta</option>
+                                        <option value="4-5">4-5 juta</option>
+                                        <option value="5">> 5 juta</option>
                                     </select>
                                 </div>
                             </div>
@@ -429,15 +433,16 @@
                                     <label for="nama_ibu"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Nama
                                         Ibu*</label>
-                                    <input type="text" id="nama_ibu" name="nama_ibu" required
+                                    <input type="text" id="nama_ibu" name="parents[1][name]" required
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="Masukkan nama ibu">
+                                    <input type="hidden" name="parents[1][type]" value="mother">
                                 </div>
 
                                 <div class="space-y-2">
                                     <label for="pekerjaan_ibu"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Pekerjaan*</label>
-                                    <input type="text" id="pekerjaan_ibu" name="pekerjaan_ibu" required
+                                    <input type="text" id="pekerjaan_ibu" name="parents[1][job]" required
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="Masukkan pekerjaan">
                                 </div>
@@ -445,24 +450,16 @@
                                 <div class="space-y-2">
                                     <label for="pendidikan_ibu"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Pendidikan*</label>
-                                    <select id="pendidikan_ibu" name="pendidikan_ibu" required
-                                        class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
-                                        <option value="">Pilih pendidikan</option>
-                                        <option value="SD">SD</option>
-                                        <option value="SMP">SMP</option>
-                                        <option value="SMA">SMA</option>
-                                        <option value="D3">D3</option>
-                                        <option value="S1">S1</option>
-                                        <option value="S2">S2</option>
-                                        <option value="S3">S3</option>
-                                    </select>
+                                    <input type="text" id="pendidikan_ibu" name="parents[1][education]" required
+                                        class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        placeholder="Contoh: S1">
                                 </div>
 
                                 <div class="space-y-2">
                                     <label for="no_hp_ibu"
                                         class="block text-base font-semibold leading-6 text-black font-inter">No.
                                         HP*</label>
-                                    <input type="tel" id="no_hp_ibu" name="no_hp_ibu" required pattern="[0-9]{10,13}"
+                                    <input type="tel" id="no_hp_ibu" name="parents[1][phone]" required pattern="[0-9]{10,13}"
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="08xxxxxxxxxx">
                                 </div>
@@ -473,7 +470,7 @@
                                 <div class="space-y-2">
                                     <label for="alamat_ibu"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Alamat*</label>
-                                    <textarea id="alamat_ibu" name="alamat_ibu" required rows="2"
+                                    <textarea id="alamat_ibu" name="parents[1][address]" required rows="2"
                                         class="w-full px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                                         placeholder="Masukkan alamat"></textarea>
                                 </div>
@@ -482,15 +479,15 @@
                                     <label for="penghasilan_ibu"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Penghasilan
                                         per Bulan*</label>
-                                    <select id="penghasilan_ibu" name="penghasilan_ibu" required
+                                    <select id="penghasilan_ibu" name="parents[1][income]" required
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                                         <option value="">Pilih opsi</option>
-                                        <option value="< 1 juta">
-                                            < 1 juta</option>
-                                        <option value="1-3 juta">1-3 juta</option>
-                                        <option value="3-5 juta">3-5 juta</option>
-                                        <option value="5-10 juta">5-10 juta</option>
-                                        <option value="> 10 juta">> 10 juta</option>
+                                        <option value="<1">< 1 juta</option>
+                                        <option value="1-2">1-2 juta</option>
+                                        <option value="2-3">2-3 juta</option>
+                                        <option value="3-4">3-4 juta</option>
+                                        <option value="4-5">4-5 juta</option>
+                                        <option value="5">> 5 juta</option>
                                     </select>
                                 </div>
                             </div>
@@ -509,15 +506,16 @@
                                     <label for="nama_wali"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Nama
                                         Wali</label>
-                                    <input type="text" id="nama_wali" name="nama_wali"
+                                    <input type="text" id="nama_wali" name="parents[2][name]"
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="Masukkan nama wali (opsional)">
+                                    <input type="hidden" name="parents[2][type]" value="guardian">
                                 </div>
 
                                 <div class="space-y-2">
                                     <label for="pekerjaan_wali"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Pekerjaan</label>
-                                    <input type="text" id="pekerjaan_wali" name="pekerjaan_wali"
+                                    <input type="text" id="pekerjaan_wali" name="parents[2][job]"
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="Masukkan pekerjaan (opsional)">
                                 </div>
@@ -525,23 +523,15 @@
                                 <div class="space-y-2">
                                     <label for="pendidikan_wali"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Pendidikan</label>
-                                    <select id="pendidikan_wali" name="pendidikan_wali"
-                                        class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
-                                        <option value="">Pilih pendidikan</option>
-                                        <option value="SD">SD</option>
-                                        <option value="SMP">SMP</option>
-                                        <option value="SMA">SMA</option>
-                                        <option value="D3">D3</option>
-                                        <option value="S1">S1</option>
-                                        <option value="S2">S2</option>
-                                        <option value="S3">S3</option>
-                                    </select>
+                                    <input type="text" id="pendidikan_wali" name="parents[2][education]"
+                                        class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        placeholder="Contoh: S1">
                                 </div>
 
                                 <div class="space-y-2">
                                     <label for="no_hp_wali"
                                         class="block text-base font-semibold leading-6 text-black font-inter">No. HP</label>
-                                    <input type="tel" id="no_hp_wali" name="no_hp_wali" pattern="[0-9]{10,13}"
+                                    <input type="tel" id="no_hp_wali" name="parents[2][phone]" pattern="[0-9]{10,13}"
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         placeholder="08xxxxxxxxxx (opsional)">
                                 </div>
@@ -552,7 +542,7 @@
                                 <div class="space-y-2">
                                     <label for="alamat_wali"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Alamat</label>
-                                    <textarea id="alamat_wali" name="alamat_wali" rows="2"
+                                    <textarea id="alamat_wali" name="parents[2][address]" rows="2"
                                         class="w-full px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                                         placeholder="Masukkan alamat (opsional)"></textarea>
                                 </div>
@@ -561,15 +551,15 @@
                                     <label for="penghasilan_wali"
                                         class="block text-base font-semibold leading-6 text-black font-inter">Penghasilan
                                         per Bulan</label>
-                                    <select id="penghasilan_wali" name="penghasilan_wali"
+                                    <select id="penghasilan_wali" name="parents[2][income]"
                                         class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                                         <option value="">Pilih opsi</option>
-                                        <option value="< 1 juta">
-                                            < 1 juta</option>
-                                        <option value="1-3 juta">1-3 juta</option>
-                                        <option value="3-5 juta">3-5 juta</option>
-                                        <option value="5-10 juta">5-10 juta</option>
-                                        <option value="> 10 juta">> 10 juta</option>
+                                        <option value="<1">< 1 juta</option>
+                                        <option value="1-2">1-2 juta</option>
+                                        <option value="2-3">2-3 juta</option>
+                                        <option value="3-4">3-4 juta</option>
+                                        <option value="4-5">4-5 juta</option>
+                                        <option value="5">> 5 juta</option>
                                     </select>
                                 </div>
                             </div>
@@ -608,14 +598,11 @@
                                     <div class="space-y-2">
                                         <label class="block text-base font-semibold leading-6 text-black font-inter">Jenis
                                             Prestasi</label>
-                                        <select name="jenis_prestasi[]"
+                                        <select name="achievements[0][type]"
                                             class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                                             <option value="">Pilih opsi</option>
-                                            <option value="Akademik">Akademik</option>
-                                            <option value="Olahraga">Olahraga</option>
-                                            <option value="Seni">Seni</option>
-                                            <option value="Teknologi">Teknologi</option>
-                                            <option value="Lainnya">Lainnya</option>
+                                            <option value="academic">Akademik</option>
+                                            <option value="nonacademic">Non-Akademik</option>
                                         </select>
                                     </div>
 
@@ -623,7 +610,7 @@
                                     <div class="space-y-2">
                                         <label class="block text-base font-semibold leading-6 text-black font-inter">Nama
                                             Prestasi</label>
-                                        <input type="text" name="nama_prestasi[]"
+                                        <input type="text" name="achievements[0][name]"
                                             class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                             placeholder="Masukkan nama prestasi">
                                     </div>
@@ -632,15 +619,16 @@
                                     <div class="space-y-2">
                                         <label
                                             class="block text-base font-semibold leading-6 text-black font-inter">Tingkat</label>
-                                        <select name="tingkat_prestasi[]"
+                                        <select name="achievements[0][tier]"
                                             class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                                             <option value="">Pilih opsi</option>
-                                            <option value="Sekolah">Sekolah</option>
-                                            <option value="Kecamatan">Kecamatan</option>
-                                            <option value="Kabupaten/Kota">Kabupaten/Kota</option>
-                                            <option value="Provinsi">Provinsi</option>
-                                            <option value="Nasional">Nasional</option>
-                                            <option value="Internasional">Internasional</option>
+                                            <option value="village">Desa</option>
+                                            <option value="sub_district">Kecamatan</option>
+                                            <option value="district">Kabupaten/Kota</option>
+                                            <option value="province">Provinsi</option>
+                                            <option value="national">Nasional</option>
+                                            <option value="international">Internasional</option>
+                                            <option value="world">Dunia</option>
                                         </select>
                                     </div>
 
@@ -648,23 +636,22 @@
                                     <div class="space-y-2">
                                         <label
                                             class="block text-base font-semibold leading-6 text-black font-inter">Peringkat</label>
-                                        <select name="peringkat_prestasi[]"
+                                        <select name="achievements[0][ranking]"
                                             class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                                             <option value="">Pilih opsi</option>
-                                            <option value="Juara 1">Juara 1</option>
-                                            <option value="Juara 2">Juara 2</option>
-                                            <option value="Juara 3">Juara 3</option>
-                                            <option value="Juara Harapan">Juara Harapan</option>
-                                            <option value="Partisipan">Partisipan</option>
+                                            <option value="1">Juara 1</option>
+                                            <option value="2">Juara 2</option>
+                                            <option value="3">Juara 3</option>
                                         </select>
                                     </div>
 
-                                    <!-- Tanggal -->
+                                    <!-- Tahun -->
                                     <div class="space-y-2">
                                         <label
-                                            class="block text-base font-semibold leading-6 text-black font-inter">Tanggal</label>
-                                        <input type="date" name="tanggal_prestasi[]"
-                                            class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                            class="block text-base font-semibold leading-6 text-black font-inter">Tahun</label>
+                                        <input type="number" name="achievements[0][year]" min="2000" max="2024"
+                                            class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                            placeholder="Contoh: 2023">
                                     </div>
                                 </div>
 
@@ -756,37 +743,43 @@
         document.addEventListener('DOMContentLoaded', function () {
             // NISN validation
             const nisnInput = document.getElementById('nisn');
-            nisnInput.addEventListener('input', function (e) {
-                // Only allow numbers
-                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-            });
+            if (nisnInput) {
+                nisnInput.addEventListener('input', function (e) {
+                    // Only allow numbers
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                });
+            }
 
             // Phone number validation
-            const phoneInput = document.getElementById('no_telepon');
-            phoneInput.addEventListener('input', function (e) {
-                // Only allow numbers
-                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-            });
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function (e) {
+                    // Only allow numbers
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                });
+            }
 
             // Form validation
             const form = document.querySelector('form');
-            form.addEventListener('submit', function (e) {
-                const requiredFields = form.querySelectorAll('[required]');
-                let isValid = true;
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    const requiredFields = form.querySelectorAll('[required]');
+                    let isValid = true;
 
-                requiredFields.forEach(field => {
-                    field.classList.remove('error');
-                    if (!field.value.trim()) {
-                        field.classList.add('error');
-                        isValid = false;
+                    requiredFields.forEach(field => {
+                        field.classList.remove('error');
+                        if (!field.value.trim()) {
+                            field.classList.add('error');
+                            isValid = false;
+                        }
+                    });
+
+                    if (!isValid) {
+                        e.preventDefault();
+                        alert('Mohon lengkapi semua field yang wajib diisi.');
                     }
                 });
-
-                if (!isValid) {
-                    e.preventDefault();
-                    alert('Mohon lengkapi semua field yang wajib diisi.');
-                }
-            });
+            }
         });
 
         function showSection(sectionId) {
@@ -857,6 +850,7 @@
         function addAchievement() {
             const container = document.getElementById('achievementContainer');
             const achievementEntry = document.createElement('div');
+            const index = container.children.length;
             achievementEntry.className = 'achievement-entry border-2 border-dashed border-gray-300 rounded-lg p-6';
 
             achievementEntry.innerHTML = `
@@ -864,14 +858,11 @@
                 <!-- Jenis Prestasi -->
                 <div class="space-y-2">
                     <label class="block text-base font-semibold leading-6 text-black font-inter">Jenis Prestasi</label>
-                    <select name="jenis_prestasi[]" 
+                    <select name="achievements[${index}][type]" 
                             class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                         <option value="">Pilih opsi</option>
-                        <option value="Akademik">Akademik</option>
-                        <option value="Olahraga">Olahraga</option>
-                        <option value="Seni">Seni</option>
-                        <option value="Teknologi">Teknologi</option>
-                        <option value="Lainnya">Lainnya</option>
+                        <option value="academic">Akademik</option>
+                        <option value="nonacademic">Non-Akademik</option>
                     </select>
                 </div>
 
@@ -879,7 +870,7 @@
                 <div class="space-y-2">
                     <label class="block text-base font-semibold leading-6 text-black font-inter">Nama Prestasi</label>
                     <input type="text" 
-                           name="nama_prestasi[]"
+                           name="achievements[${index}][name]"
                            class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                            placeholder="Masukkan nama prestasi">
                 </div>
@@ -887,38 +878,38 @@
                 <!-- Tingkat -->
                 <div class="space-y-2">
                     <label class="block text-base font-semibold leading-6 text-black font-inter">Tingkat</label>
-                    <select name="tingkat_prestasi[]" 
+                    <select name="achievements[${index}][tier]" 
                             class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                         <option value="">Pilih opsi</option>
-                        <option value="Sekolah">Sekolah</option>
-                        <option value="Kecamatan">Kecamatan</option>
-                        <option value="Kabupaten/Kota">Kabupaten/Kota</option>
-                        <option value="Provinsi">Provinsi</option>
-                        <option value="Nasional">Nasional</option>
-                        <option value="Internasional">Internasional</option>
+                        <option value="village">Desa</option>
+                        <option value="sub_district">Kecamatan</option>
+                        <option value="district">Kabupaten/Kota</option>
+                        <option value="province">Provinsi</option>
+                        <option value="national">Nasional</option>
+                        <option value="international">Internasional</option>
+                        <option value="world">Dunia</option>
                     </select>
                 </div>
 
                 <!-- Peringkat -->
                 <div class="space-y-2">
                     <label class="block text-base font-semibold leading-6 text-black font-inter">Peringkat</label>
-                    <select name="peringkat_prestasi[]" 
+                    <select name="achievements[${index}][ranking]" 
                             class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none">
                         <option value="">Pilih opsi</option>
-                        <option value="Juara 1">Juara 1</option>
-                        <option value="Juara 2">Juara 2</option>
-                        <option value="Juara 3">Juara 3</option>
-                        <option value="Juara Harapan">Juara Harapan</option>
-                        <option value="Partisipan">Partisipan</option>
+                        <option value="1">Juara 1</option>
+                        <option value="2">Juara 2</option>
+                        <option value="3">Juara 3</option>
                     </select>
                 </div>
 
-                <!-- Tanggal -->
+                <!-- Tahun -->
                 <div class="space-y-2">
-                    <label class="block text-base font-semibold leading-6 text-black font-inter">Tanggal</label>
-                    <input type="date" 
-                           name="tanggal_prestasi[]"
-                           class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <label class="block text-base font-semibold leading-6 text-black font-inter">Tahun</label>
+                    <input type="number" 
+                           name="achievements[${index}][year]" min="2000" max="2024"
+                           class="w-full h-13 px-3 py-2 bg-white border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="Contoh: 2023">
                 </div>
             </div>
 
@@ -962,39 +953,17 @@
                 return;
             }
 
-            // Collect achievement data
-            const achievements = [];
-            const achievementEntries = document.querySelectorAll('.achievement-entry');
-
-            achievementEntries.forEach((entry) => {
-                const jenisSelect = entry.querySelector('select[name="jenis_prestasi[]"]');
-                const namaInput = entry.querySelector('input[name="nama_prestasi[]"]');
-                const tingkatSelect = entry.querySelector('select[name="tingkat_prestasi[]"]');
-                const peringkatSelect = entry.querySelector('select[name="peringkat_prestasi[]"]');
-                const tanggalInput = entry.querySelector('input[name="tanggal_prestasi[]"]');
-
-                // Only add if at least name is filled
-                if (namaInput && namaInput.value.trim()) {
-                    achievements.push({
-                        jenis: jenisSelect ? jenisSelect.value : '',
-                        nama: namaInput.value,
-                        tingkat: tingkatSelect ? tingkatSelect.value : '',
-                        peringkat: peringkatSelect ? peringkatSelect.value : '',
-                        tanggal: tanggalInput ? tanggalInput.value : ''
-                    });
-                }
-            });
-
-            // Add achievements as hidden input
-            const form = document.getElementById('registrationForm');
-            const prestasiInput = document.createElement('input');
-            prestasiInput.type = 'hidden';
-            prestasiInput.name = 'prestasi';
-            prestasiInput.value = JSON.stringify(achievements);
-            form.appendChild(prestasiInput);
-
-            // Submit form
-            form.submit();
+            // Refresh CSRF token before submission
+            fetch('/csrf-token')
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('input[name="_token"]').value = data.token;
+                })
+                .catch(error => console.log('CSRF refresh failed:', error))
+                .finally(() => {
+                    const form = document.getElementById('registrationForm');
+                    form.submit();
+                });
         }
     </script>
 @endsection

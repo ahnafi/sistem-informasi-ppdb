@@ -47,26 +47,42 @@ class RegistrationCreateRequest extends FormRequest
             "periodic.child_status" => ["nullable", "in:biological,adopted"],
             "periodic.child_order" => ["nullable", "integer"],
             "periodic.siblings" => ["nullable", "integer"],
-            // registration_id akan diisi otomatis setelah registration dibuat
 
             // Prestasi (Tabel achievements)
-            "achievements.*.type" => ["required", "in:academic,nonacademic"],
-            "achievements.*.name" => ["required", "string"],
-            "achievements.*.year" => ["required", "integer"],
-            "achievements.*.ranking" => ["required", "in:1,2,3"],
-            "achievements.*.tier" => ["required", "in:village,sub_district,district,province,national,international,world"],
-            // registration_id akan diisi otomatis setelah registration dibuat
+            "achievements" => ["nullable", "array"],
+            "achievements.*.type" => ["required_with:achievements.*.name", "in:academic,nonacademic"],
+            "achievements.*.name" => ["nullable", "string"],
+            "achievements.*.year" => ["required_with:achievements.*.name", "integer"],
+            "achievements.*.ranking" => ["required_with:achievements.*.name", "in:1,2,3"],
+            "achievements.*.tier" => ["required_with:achievements.*.name", "in:village,sub_district,district,province,national,international,world"],
 
             // Wali (Tabel student_parents)
             "parents" => ["required", "array", "min:1"],
             "parents.*.type" => ["required", "in:father,mother,guardian"],
-            "parents.*.name" => ["required", "string"],
-            "parents.*.phone" => ["required", "string"],
-            "parents.*.village_district_province" => ["nullable", "string"],
-            "parents.*.address" => ["nullable", "string"],
-            "parents.*.job" => ["nullable", "string"],
-            "parents.*.income" => ["required", "in:<1,1-2,2-3,3-4, 4-5,>5"],
-            // registration_id akan diisi otomatis setelah registration dibuat
+
+            // Father (parents.0)
+            "parents.0.name" => ["required", "string"],
+            "parents.0.phone" => ["required", "string"],
+            "parents.0.address" => ["required", "string"],
+            "parents.0.job" => ["required", "string"],
+            "parents.0.education" => ["required", "string"],
+            "parents.0.income" => ["required", "in:<1,1-2,2-3,3-4,4-5,5"],
+
+            // Mother (parents.1)
+            "parents.1.name" => ["required", "string"],
+            "parents.1.phone" => ["required", "string"],
+            "parents.1.address" => ["required", "string"],
+            "parents.1.job" => ["required", "string"],
+            "parents.1.education" => ["required", "string"],
+            "parents.1.income" => ["required", "in:<1,1-2,2-3,3-4,4-5,5"],
+
+            // Guardian (parents.2) - All optional
+            "parents.2.name" => ["nullable", "string"],
+            "parents.2.phone" => ["nullable", "string"],
+            "parents.2.address" => ["nullable", "string"],
+            "parents.2.job" => ["nullable", "string"],
+            "parents.2.education" => ["nullable", "string"],
+            "parents.2.income" => ["nullable", "in:<1,1-2,2-3,3-4,4-5,5"],
         ];
     }
 }
