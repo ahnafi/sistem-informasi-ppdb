@@ -18,13 +18,12 @@ class ArticleFactory extends Factory
      */
     public function definition(): array
     {
-        
         $title = $this->faker->sentence(6);
         return [
             'title' => $title,
             'slug' => Str::slug($title) . '-' . Str::random(5),
             'content' => $this->faker->paragraphs(5, true),
-            'thumbnail' => $this->faker->imageUrl(800, 600, 'news', true, 'thumbnail'),
+            'thumbnail' => $this->faker->image("public","1200","720","news"),
             'is_featured' => $this->faker->boolean(20),
             'category_id' => \App\Models\Category::inRandomOrder()->first()->id ?? \App\Models\Category::factory(),
             'author_id' => \App\Models\Author::inRandomOrder()->first()->id ?? \App\Models\Author::factory(),
