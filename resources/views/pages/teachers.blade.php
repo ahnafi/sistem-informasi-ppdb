@@ -117,7 +117,7 @@
 </div>
 
 <!-- DEPARTMENT QUICK NAVIGATION -->
-<div class="bg-gray-100 py-6 border-b border-gray-200 sticky top-[88px] z-20">
+<div class="bg-gray-100 py-6 border-b border-gray-200 sticky top-[67px] z-20">
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-bold text-gray-800">Departemen Guru</h2>

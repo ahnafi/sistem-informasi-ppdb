@@ -2,81 +2,61 @@
 @section("title","Struktur Organisasi SMA Hogwarts")
 
 @section("main")
-
-<div class="relative overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-br from-indigo-950/95 via-blue-900/85 to-purple-800/80 z-10"></div>
-  
-  <div class="absolute inset-0 z-10 opacity-20">
-    <div class="absolute inset-0 constellation-pattern"></div>
-  </div>
-  
-  <div class="absolute inset-0 z-10 overflow-hidden">
-    <div class="absolute top-20 left-[15%] w-20 h-20 bg-blue-400/30 rounded-full blur-xl animate-float-slow"></div>
-    <div class="absolute top-36 right-[20%] w-28 h-28 bg-purple-500/20 rounded-full blur-xl animate-float-medium"></div>
-    <div class="absolute bottom-24 left-[25%] w-24 h-24 bg-indigo-400/20 rounded-full blur-xl animate-float-fast"></div>
-    
-    <div class="stars-container">
-      <div class="star" style="top: 15%; left: 10%; animation-delay: 0.5s;"></div>
-      <div class="star" style="top: 25%; left: 85%; animation-delay: 1.2s;"></div>
-      <div class="star" style="top: 60%; left: 75%; animation-delay: 0.8s;"></div>
-      <div class="star" style="top: 70%; left: 20%; animation-delay: 1.5s;"></div>
-      <div class="star" style="top: 40%; left: 50%; animation-delay: 2s;"></div>
-      <div class="star" style="top: 80%; left: 35%; animation-delay: 0.3s;"></div>
-      <div class="star" style="top: 10%; left: 65%; animation-delay: 1.7s;"></div>
-    </div>
-  </div>
-
-  <div class="w-full">
-    <div class="w-full h-[350px] md:h-[400px] lg:h-[450px] bg-cover bg-center backdrop-blur-sm" 
-         style="background-image: url('{{ asset('images/school-hero.jpg') }}');">
-    </div>
-  </div>
-  
-  <div class="absolute inset-0 z-20 flex flex-col justify-center px-6 sm:px-12 lg:px-24">
-    <div class="max-w-7xl mx-auto">
-      <div class="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 mb-6 rounded-full animate-pulse"></div>
-      
-      <h1 class="magical-text text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-4">
-        STRUKTUR ORGANISASI
-      </h1>
-    </div>
-  </div>
-  
-  {{-- <div class="absolute bottom-0 left-0 right-0 z-20 py-3 bg-gradient-to-r from-indigo-900/80 via-blue-800/90 to-indigo-900/80 backdrop-blur-sm">
-  </div> --}}
-</div>
-
-<div id="org-structure" class="bg-gradient-to-b from-gray-50 to-gray-100 py-16 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-gray-900 mb-2 inline-block relative">
-        Struktur Organisasi SMA Hogwarts
-        <div class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-600 rounded-full"></div>
-      </h2>
-      <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Peta kepemimpinan yang membawa visi magis sekolah kita menjadi kenyataan</p>
-    </div>
-    
-    <!-- Struktur Organisasi sebagai PNG Image -->
-    <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200/50 relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full -mr-32 -mt-32 opacity-70"></div>
-      <div class="absolute bottom-0 left-0 w-80 h-80 bg-indigo-50 rounded-full -ml-40 -mb-40 opacity-70"></div>
-      
-      <div class="relative z-10">
-        <!-- PNG Image of Organization Structure -->
-        <div class="flex justify-center">
-          <div class="relative rounded-xl overflow-hidden border-2 border-blue-100 shadow-lg">
-            <img 
-              src="{{ asset('images/struktur-organisasi.png') }}" 
-              alt="Struktur Organisasi SMA Hogwarts" 
-              class="max-w-full h-auto"
-            >
- 
-            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-          </div>
+<div class="bg-white relative w-full min-h-screen overflow-x-hidden">
+    <!-- Banner Section -->
+    <div class="absolute w-full h-[455px] left-0 top-0 flex flex-col items-start gap-2.5 isolate">
+        <div class="absolute w-full h-full left-0 top-0">
+            <!-- Background Image -->
+            <div class="absolute w-full h-full left-0 top-0 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('images/home/building.jpg') }}')"></div>
+            <!-- Blue Overlay with Gradient -->
+            <div class="absolute w-full h-full left-0 top-0 bg-gradient-to-r from-blue-600/80 via-blue-500/60 to-blue-400/30"></div>
+            <div class="absolute w-full h-full left-0 top-0 bg-gradient-to-b from-blue-600/60 via-blue-500/40 to-transparent"></div>
         </div>
-      </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center z-10">
+            <div class="flex flex-col items-start gap-4">
+                <div class="flex flex-col items-start gap-2">
+                    <h1 class="font-roboto font-medium text-[50px] leading-[59px] text-white drop-shadow-lg">Struktur Organisasi</h1>
+                    <div class="w-[501.5px] h-[2px] bg-white/70"></div>
+                </div>
+                <p class="font-roboto font-medium text-2xl leading-[28px] text-white/90 drop-shadow-md">SMA Hogwarts</p>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <!-- Organization Structure Content -->
+    <div id="org-structure" class="bg-gradient-to-b from-gray-50 to-gray-100 py-16 px-4 sm:px-6 lg:px-8 mt-[543px]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2 inline-block relative">
+                    Struktur Organisasi SMA Hogwarts
+                    <div class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-600 rounded-full"></div>
+                </h2>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Peta kepemimpinan yang membawa visi magis sekolah kita menjadi kenyataan</p>
+            </div>
+            
+            <!-- Struktur Organisasi sebagai PNG Image -->
+            <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-200/50 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full -mr-32 -mt-32 opacity-70"></div>
+                <div class="absolute bottom-0 left-0 w-80 h-80 bg-indigo-50 rounded-full -ml-40 -mb-40 opacity-70"></div>
+                
+                <div class="relative z-10">
+                    <!-- PNG Image of Organization Structure -->
+                    <div class="flex justify-center">
+                        <div class="relative rounded-xl overflow-hidden border-2 border-blue-100 shadow-lg">
+                            <img 
+                                src="{{ asset('images/home/struk.png') }}" 
+                                alt="Struktur Organisasi SMA Hogwarts" 
+                                class="max-w-full h-auto"
+                            >
+                            
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>

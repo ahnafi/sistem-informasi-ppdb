@@ -2,46 +2,53 @@
 @section("title","Artikel & Berita")
 
 @section("main")
-<!-- Hero Section -->
-<section class="relative bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 text-white overflow-hidden">
-  <div class="absolute inset-0 bg-black/20"></div>
-  <div class="absolute inset-0">
-    <svg class="absolute bottom-0 left-0 text-white/10" width="404" height="404" fill="currentColor" viewBox="0 0 404 404">
-      <defs>
-        <pattern id="85737c0e-0916-41d7-917f-596dc7edfa27" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-          <rect x="0" y="0" width="4" height="4" class="text-white/5" fill="currentColor" />
-        </pattern>
-      </defs>
-      <rect width="404" height="404" fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)" />
-    </svg>
-  </div>
-  
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-    <div class="text-center my-12">
-      <h1 class="text-4xl md:text-6xl font-bold mb-6">
-        Artikel & Berita
-        <span class="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">Terkini</span>
-      </h1>
-      <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
-        Dapatkan informasi terbaru seputar pendidikan dan kegiatan SMA Hogwarts
-      </p>
+<!-- Banner Section -->
+<div class="absolute w-full h-[455px] left-0 top-0 flex flex-col items-start gap-2.5 isolate">
+    <div class="absolute w-full h-full left-0 top-0">
+        <!-- Background Image -->
+        <div class="absolute w-full h-full left-0 top-0 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('images/home/building.jpg') }}')"></div>
+        <!-- Blue Overlay with Gradient -->
+        <div class="absolute w-full h-full left-0 top-0 bg-gradient-to-r from-blue-600/80 via-blue-500/60 to-blue-400/30"></div>
+        <div class="absolute w-full h-full left-0 top-0 bg-gradient-to-b from-blue-600/60 via-blue-500/40 to-transparent"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center z-10">
+        <div class="flex flex-col items-start gap-4">
+            <div class="flex flex-col items-start gap-2">
+                <h1 class="font-roboto font-medium text-[50px] leading-[59px] text-white drop-shadow-lg">Artikel & Berita</h1>
+                <div class="w-[501.5px] h-[2px] bg-white/70"></div>
+            </div>
+            <p class="font-roboto font-medium text-2xl leading-[28px] text-white/90 drop-shadow-md">SMA Hogwarts</p>
+        </div>
+    </div>
+</div>
+
+<!-- Add spacing to push content below the banner -->
+<div class="h-[455px]"></div>
+
+<!-- Search Section -->
+<section class="bg-white py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Cari Artikel & Berita</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Temukan informasi terbaru seputar pendidikan dan kegiatan SMA Hogwarts</p>
     </div>
     
     <!-- Enhanced Search Bar -->
     <div class="max-w-3xl mx-auto">
-      <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+      <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200">
         <form action="{{ route('article.search') }}" method="GET" class="space-y-4 md:space-y-0 md:flex md:gap-4">
           <div class="flex-1">
             <div class="relative">
               <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                <svg class="w-5 h-5 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
               </div>
               <input 
                 type="text" 
                 name="s" 
-                class="w-full pl-12 pr-4 py-4 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent" 
+                class="w-full pl-12 pr-4 py-4 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
                 placeholder="Cari artikel yang menarik..." 
                 value="{{ request('s') }}"
               >
@@ -51,11 +58,11 @@
           <div class="md:w-56">
             <select 
               name="kategori" 
-              class="w-full py-4 px-4 bg-white/20 border border-white/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+              class="w-full py-4 px-4 bg-white border border-gray-300 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="" class="text-gray-900">Semua Kategori</option>
+              <option value="">Semua Kategori</option>
               @foreach($categories as $cat)
-                <option value="{{ $cat->slug }}" class="text-gray-900" {{ request('kategori') == $cat->slug ? 'selected' : '' }}>
+                <option value="{{ $cat->slug }}" {{ request('kategori') == $cat->slug ? 'selected' : '' }}>
                   {{ $cat->name ?? $cat->title }}
                 </option>
               @endforeach
@@ -64,7 +71,7 @@
           
           <button 
             type="submit" 
-            class="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-gray-900 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105"
+            class="w-full md:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-300"
           >
             Cari Artikel
           </button>

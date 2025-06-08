@@ -1,6 +1,6 @@
 <!-- ========== HEADER ========== -->
-<header id="main-header" class="fixed top-0 left-0 right-0 flex flex-wrap lg:justify-start lg:flex-nowrap z-50 w-full py-3 transition-all duration-500 bg-transparent backdrop-blur-0">
-    <div id="header-particles" class="absolute inset-0 overflow-hidden pointer-events-none transition-opacity duration-500 opacity-70">
+<header id="main-header" class="fixed top-0 left-0 right-0 flex flex-wrap lg:justify-start lg:flex-nowrap z-50 w-full py-3 bg-white shadow-lg">
+    <div id="header-particles" class="absolute inset-0 overflow-hidden pointer-events-none opacity-70">
         <div class="absolute top-1/4 left-1/4 w-1 h-1 bg-blue-300 rounded-full animate-pulse-slow"></div>
         <div class="absolute top-3/4 left-1/2 w-1.5 h-1.5 bg-purple-300 rounded-full animate-pulse-slow" style="animation-delay: -2s;"></div>
         <div class="absolute top-1/3 left-3/4 w-1 h-1 bg-indigo-300 rounded-full animate-pulse-slow" style="animation-delay: -1s;"></div>
@@ -31,7 +31,7 @@
       <div class="flex items-center gap-x-1 lg:gap-x-2 ms-auto py-1 lg:ps-6 lg:order-3 lg:col-span-3">  
         <!-- Mobile menu toggle -->
         <div class="lg:hidden">
-          <button type="button" class="hs-collapse-toggle size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-white/20 text-white hover:bg-white/20 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 transition-all" id="hs-navbar-collapse-with-animation" data-hs-collapse="#hs-navbar-collapse-with-animation-mobile" aria-controls="hs-navbar-collapse-with-animation-mobile" aria-label="Toggle navigation">
+          <button type="button" class="hs-collapse-toggle size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-gray-200 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 transition-all" id="hs-navbar-collapse-with-animation" data-hs-collapse="#hs-navbar-collapse-with-animation-mobile" aria-controls="hs-navbar-collapse-with-animation-mobile" aria-label="Toggle navigation">
             <svg class="hs-collapse-open:hidden flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
             <svg class="hs-collapse-open:flex hidden flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
           </button>
@@ -115,7 +115,7 @@
               </a>
               <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus:bg-gray-700" href="{{ route('home.orgstructure') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-purple-600">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.479m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.479m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                 </svg>
                 Struktur Organisasi
               </a>
@@ -210,24 +210,6 @@
     animation: pulse-slow 4s ease-in-out infinite;
   }
   
-  #main-header.scrolled {
-    @apply bg-white shadow-lg py-2;
-    background-color: white;
-    backdrop-filter: none;
-  }
-  
-  #main-header.scrolled #header-particles {
-    @apply opacity-0;
-  }
-  
-  #main-header.scrolled .text-white {
-    @apply text-gray-800;
-  }
-  
-  #main-header.scrolled .border-white\/20 {
-    @apply border-gray-200;
-  }
-  
   .magical-link::after {
     content: '';
     position: absolute;
@@ -249,40 +231,10 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const header = document.getElementById('main-header');
-    const scrollThreshold = 50;
-    
-    function updateHeaderStyle() {
-      if (window.scrollY > scrollThreshold) {
-        header.classList.add('scrolled');
-        header.style.backdropFilter = 'none';
-        header.style.backgroundColor = 'white';
-        document.querySelectorAll('#main-header .magical-link').forEach(link => {
-          link.classList.remove('text-white');
-          link.classList.add('text-gray-800');
-        });
-      } else {
-        header.classList.remove('scrolled');
-        header.style.backgroundColor = 'transparent';
-        header.style.backdropFilter = '';
-        if (!window.location.pathname.includes('/home')) {
-          document.querySelectorAll('#main-header .magical-link').forEach(link => {
-            link.classList.add('text-white');
-            link.classList.remove('text-gray-800');
-          });
-        }
-      }
-    }
-    
-    updateHeaderStyle();
-    
-    window.addEventListener('scroll', updateHeaderStyle);
-    
     const links = document.querySelectorAll('.magical-link');
     
     links.forEach(link => {
       link.addEventListener('mouseover', function(e) {
-
         const sparkle = document.createElement('div');
         sparkle.className = 'absolute h-1 w-1 bg-blue-400 rounded-full';
         sparkle.style.top = '50%';

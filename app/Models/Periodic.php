@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Periodic extends Model
 {
-    use softDeletes;
+    use SoftDeletes;
+    
     protected $fillable = [
         "religion",
         "residence",

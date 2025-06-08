@@ -2,61 +2,29 @@
 @section('title', 'Kesiswaan SMA Hogwarts')
 
 @section('main')
-<!-- Hero Section -->
-<div class="relative overflow-hidden">
-  <!-- Magical atmosphere gradient overlay -->
-  <div class="absolute inset-0 bg-gradient-to-br from-indigo-950/95 via-blue-900/85 to-purple-800/80 z-10"></div>
-  
-  <!-- Constellation pattern overlay -->
-  <div class="absolute inset-0 z-10 opacity-20">
-    <div class="absolute inset-0 constellation-pattern"></div>
-  </div>
-  
-  <!-- Magical floating elements -->
-  <div class="absolute inset-0 z-10 overflow-hidden">
-    <div class="absolute top-20 left-[15%] w-20 h-20 bg-blue-400/30 rounded-full blur-xl animate-float-slow"></div>
-    <div class="absolute top-36 right-[20%] w-28 h-28 bg-purple-500/20 rounded-full blur-xl animate-float-medium"></div>
-    <div class="absolute bottom-24 left-[25%] w-24 h-24 bg-indigo-400/20 rounded-full blur-xl animate-float-fast"></div>
+<!-- Banner Section -->
+<div class="absolute w-full h-[455px] left-0 top-0 flex flex-col items-start gap-2.5 isolate">
+    <div class="absolute w-full h-full left-0 top-0">
+        <!-- Background Image -->
+        <div class="absolute w-full h-full left-0 top-0 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ asset('images/home/building.jpg') }}')"></div>
+        <!-- Blue Overlay with Gradient -->
+        <div class="absolute w-full h-full left-0 top-0 bg-gradient-to-r from-blue-600/80 via-blue-500/60 to-blue-400/30"></div>
+        <div class="absolute w-full h-full left-0 top-0 bg-gradient-to-b from-blue-600/60 via-blue-500/40 to-transparent"></div>
+    </div>
     
-    <!-- Small animated stars -->
-    <div class="stars-container">
-      <div class="star" style="top: 15%; left: 10%; animation-delay: 0.5s;"></div>
-      <div class="star" style="top: 25%; left: 85%; animation-delay: 1.2s;"></div>
-      <div class="star" style="top: 60%; left: 75%; animation-delay: 0.8s;"></div>
-      <div class="star" style="top: 70%; left: 20%; animation-delay: 1.5s;"></div>
-      <div class="star" style="top: 40%; left: 50%; animation-delay: 2s;"></div>
-      <div class="star" style="top: 80%; left: 35%; animation-delay: 0.3s;"></div>
-      <div class="star" style="top: 10%; left: 65%; animation-delay: 1.7s;"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center z-10">
+        <div class="flex flex-col items-start gap-4">
+            <div class="flex flex-col items-start gap-2">
+                <h1 class="font-roboto font-medium text-[50px] leading-[59px] text-white drop-shadow-lg">Kesiswaan</h1>
+                <div class="w-[501.5px] h-[2px] bg-white/70"></div>
+            </div>
+            <p class="font-roboto font-medium text-2xl leading-[28px] text-white/90 drop-shadow-md">SMA Hogwarts</p>
+        </div>
     </div>
-  </div>
-
-  <!-- Background Image -->
-  <div class="w-full">
-    <div class="w-full h-[350px] md:h-[400px] lg:h-[450px] bg-cover bg-center backdrop-blur-sm" 
-         style="background-image: url('{{ asset('images/school-hero.jpg') }}');">
-    </div>
-  </div>
-  
-  <!-- Hero Content -->
-  <div class="absolute inset-0 z-20 flex flex-col justify-center px-6 sm:px-12 lg:px-24">
-    <div class="max-w-7xl mx-auto">
-      <!-- Magical divider -->
-      <div class="w-24 h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 mb-6 rounded-full animate-pulse"></div>
-      
-      <!-- Title -->
-      <h1 class="magical-text text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide mb-4">
-        KESISWAAN
-      </h1>
-    </div>
-  </div>
-  
-  <!-- Organization level indicators -->
-  {{-- <div class="absolute bottom-0 left-0 right-0 z-20 py-3 bg-gradient-to-r from-indigo-900/80 via-blue-800/90 to-indigo-900/80 backdrop-blur-sm">
-    <div class="max-w-7xl mx-auto h-full flex flex-wrap items-center justify-between px-6 gap-y-2">
-      
-    </div>
-  </div> --}}
 </div>
+
+<!-- Add spacing to push content below the banner -->
+<div class="h-[455px]"></div>
 
 <!-- Coordinator's Introduction Section -->
 <div id="student-life" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
@@ -512,142 +480,6 @@
                             </a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Student Achievements -->
-        <div class="mb-24">
-            <div class="text-center max-w-3xl mx-auto mb-12">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
-                    PRESTASI SISWA
-                </span>
-                <h2 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                    Prestasi Gemilang Siswa Hogwarts
-                </h2>
-                <p class="mt-4 text-lg text-gray-600">
-                    Berbagai pencapaian membanggakan yang diraih oleh siswa-siswi SMA Hogwarts di berbagai bidang.
-                </p>
-            </div>
-            
-            <!-- Achievement Timeline -->
-            <div class="relative mx-auto achievement-timeline">
-                <!-- Timeline Center Line -->
-                <div class="absolute left-1/2 -ml-px h-full w-0.5 bg-gradient-to-b from-blue-400 via-indigo-500 to-purple-500"></div>
-                
-                <!-- Achievement Item 1 -->
-                <div class="relative mb-16">
-                    <div class="relative z-10 achievement-item achievement-item-left">
-                        <!-- Date Badge -->
-                        <div class="absolute top-5 -right-16 md:-right-40 z-20">
-                            <div class="h-10 px-4 py-2 bg-blue-600 text-white rounded-full font-bold inline-flex items-center justify-center shadow-md">
-                                2023
-                            </div>
-                        </div>
-                        
-                        <!-- Content -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 border border-blue-100 achievement-card">
-                            <div class="flex items-center mb-4">
-                                <div class="bg-blue-100 p-3 rounded-xl">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0" />
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900 ml-4">Juara I Olimpiade Sains Nasional</h3>
-                            </div>
-                            <p class="text-gray-600 mb-4">
-                                Tim SMA Hogwarts berhasil meraih medali emas dalam Olimpiade Sains Nasional bidang Fisika dan Matematika.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                                    Olimpiade
-                                </span>
-                                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                                    Penghargaan Nasional
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Achievement Item 2 -->
-                <div class="relative mb-16">
-                    <div class="relative z-10 achievement-item achievement-item-right">
-                        <!-- Date Badge -->
-                        <div class="absolute top-5 -left-16 md:-left-40 z-20">
-                            <div class="h-10 px-4 py-2 bg-indigo-600 text-white rounded-full font-bold inline-flex items-center justify-center shadow-md">
-                                2022
-                            </div>
-                        </div>
-                        
-                        <!-- Content -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 border border-indigo-100 achievement-card">
-                            <div class="flex items-center mb-4">
-                                <div class="bg-indigo-100 p-3 rounded-xl">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-indigo-600">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900 ml-4">Juara Umum Kompetisi Seni & Budaya</h3>
-                            </div>
-                            <p class="text-gray-600 mb-4">
-                                SMA Hogwarts menjadi juara umum dalam Festival Seni & Budaya Pelajar tingkat Provinsi dengan total 8 medali.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">
-                                    Kompetisi Seni
-                                </span>
-                                <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10">
-                                    Penghargaan Provinsi
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Achievement Item 3 -->
-                <div class="relative mb-16">
-                    <div class="relative z-10 achievement-item achievement-item-left">
-                        <!-- Date Badge -->
-                        <div class="absolute top-5 -right-16 md:-right-40 z-20">
-                            <div class="h-10 px-4 py-2 bg-purple-600 text-white rounded-full font-bold inline-flex items-center justify-center shadow-md">
-                                2022
-                            </div>
-                        </div>
-                        
-                        <!-- Content -->
-                        <div class="bg-white rounded-xl shadow-lg p-6 border border-purple-100 achievement-card">
-                            <div class="flex items-center mb-4">
-                                <div class="bg-purple-100 p-3 rounded-xl">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-purple-600">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 0 0 .658-.663 48.422 48.422 0 0 0-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 0 1-.61-.58v0Z" />
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900 ml-4">Finalis Kompetisi Robotik Internasional</h3>
-                            </div>
-                            <p class="text-gray-600 mb-4">
-                                Tim Robotik SMA Hogwarts masuk dalam 10 besar finalis International Robotics Challenge di Tokyo, Jepang.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
-                                    Robotik
-                                </span>
-                                <span class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10">
-                                    Kompetisi Internasional
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- View More Button -->
-                <div class="text-center mt-8">
-                    <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-full shadow-md hover:from-blue-700 hover:to-indigo-700 transition-all">
-                        <span>Lihat Semua Prestasi</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                        </svg>
-                    </a>
                 </div>
             </div>
         </div>

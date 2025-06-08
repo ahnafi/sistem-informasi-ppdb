@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->string("residence")->nullable();
             $table->float("height")->nullable();
             $table->float("weight")->nullable();
-            $table->boolean("medical_history")->nullable();
-            $table->integer("home_distance")->nullable();
+            $table->string("medical_history")->nullable(); 
+            $table->float("home_distance")->nullable(); 
             $table->integer("travel_time")->nullable();
             $table->enum("child_status", ["biological", "adopted"])->nullable();
             $table->integer("child_order")->nullable();
