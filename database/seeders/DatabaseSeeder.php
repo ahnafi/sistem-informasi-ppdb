@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             TeacherSeeder::class,
             RegistrationAndStudentSeeder::class,
             ClassroomSeeder::class,
+            AcademicCalendarSeeder::class
         ]);
 
         \App\Models\Category::factory(5)->create();
