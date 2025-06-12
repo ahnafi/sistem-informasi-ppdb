@@ -2,7 +2,7 @@
 
 @section('main')
 <!-- Hero Section -->
-<section class="relative bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 text-white py-20">
+<section class="relative bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 text-white py-20 pt-30">
   <div class="absolute inset-0 bg-black/20"></div>
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center">
@@ -63,7 +63,7 @@
                   @else
                     <div class="w-full h-full bg-gradient-to-br from-emerald-100 to-teal-100 flex items-center justify-center">
                       <span class="text-2xl font-bold text-emerald-600">
-                        {{ substr($author->name, 0, 1) }}
+                        {{ substr($author->name, 0, length: 1) }}
                       </span>
                     </div>
                   @endif

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\AcademicCalendar;
+use App\Models\Contact;
+use App\Http\Requests\ContactRequest;
+use App\Mail\ContactFormMail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 
@@ -35,9 +39,41 @@ class ProfileController extends Controller
         return response()->view('pages.contact');
     }
 
-    public function sendContact(): RedirectResponse
+    public function sendContact(ContactRequest $request): RedirectResponse
     {
-        return back()->with('success', 'Thanks for contacting us!');
+        try {
+            // Create contact record
+            $contact = Contact::create($request->validated());
+
+            // Send email notification to admin
+            $adminEmail = config('mail.admin_email', 'admin@hogwarts.ac.uk');
+            Mail::to($adminEmail)->send(new ContactFormMail($contact));
+
+            // Send auto-reply to user
+            $this->sendAutoReply($contact);
+
+            return back()->with('success', 'Terima kasih! Pesan Anda telah terkirim. Kami akan merespons dalam 1-2 hari kerja.');
+
+        } catch (\Exception $e) {
+            Log::error('Contact form submission failed', [
+                'error' => $e->getMessage(),
+                'request_data' => $request->all()
+            ]);
+
+            return back()->with('error', 'Maaf, terjadi kesalahan saat mengirim pesan. Silakan coba lagi atau hubungi kami langsung.')->withInput();
+        }
+    }
+
+    private function sendAutoReply(Contact $contact)
+    {
+        try {
+            Mail::to($contact->email)->send(new \App\Mail\ContactAutoReply($contact));
+        } catch (\Exception $e) {
+            Log::warning('Failed to send auto-reply email', [
+                'contact_id' => $contact->id,
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
     public function facility(): Response

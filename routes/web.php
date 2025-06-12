@@ -33,3 +33,4 @@ Route::get('/article/all', [ArticleController::class, 'allArticles'])->name('art
 Route::get('/article/authors', [ArticleController::class, 'allAuthors'])->name('article.authors');
 Route::get('/article/author/{author}', [ArticleController::class, 'authorArticles'])->name('article.author');
 Route::get('/article/{article:slug}', [ArticleController::class, "detail"])->name('article.detail');
+Route::post('/contact/send', [ProfileController::class, 'sendContact'])->name('contact.send');

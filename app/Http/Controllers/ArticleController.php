@@ -7,6 +7,9 @@ use App\Models\Category;
 use App\Models\Author;
 use Doctrine\DBAL\Query\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class ArticleController extends Controller
 {
@@ -17,6 +20,16 @@ class ArticleController extends Controller
         $featured = Article::where('is_featured', 1)->limit(4)->get();
         $categories = Category::query()->withCount('articles')->limit(5)->get();
         $authors = Author::query()->withCount('articles')->limit(5)->get();
+
+        // // Debug: Check if thumbnail files exist
+        // foreach ($news as $article) {
+        //     if ($article->thumbnail) {
+        //         $filePath = storage_path('app/public/' . $article->thumbnail);
+        //         if (!File::exists($filePath)) {
+        //             Log::warning("Thumbnail file not found: {$filePath} for article: {$article->title}");
+        //         }
+        //     }
+        // }
 
         return response()->view('pages.article.index', [
             'news' => $news,
