@@ -92,7 +92,7 @@
                                             </div>
 
                                             <!-- Right Content - Activity -->
-                                            <div class="grow pt-0.5 pb-8">
+                                            <div class="grow">
                                                 <h4 class="font-semibold text-gray-800 text-lg mb-1">
                                                     {{ $event['activity'] }}
                                                 </h4>
