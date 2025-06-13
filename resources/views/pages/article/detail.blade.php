@@ -70,7 +70,7 @@
       <article class="lg:col-span-3">
         <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
           <!-- Featured Image -->
-          @if($detail->thumbnail)
+          @if($detail->thumbnail && file_exists(storage_path('app/public/' . $detail->thumbnail)))
             <div class="relative h-96 overflow-hidden">
               <img 
                 src="{{ asset('storage/' . $detail->thumbnail) }}" 
@@ -126,7 +126,7 @@
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Tentang Penulis</h3>
             <div class="text-center">
               <div class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden">
-                @if($detail->author->avatar)
+                @if($detail->author->avatar && file_exists(storage_path('app/public/' . $detail->author->avatar)))
                   <img src="{{ asset('storage/' . $detail->author->avatar) }}" alt="{{ $detail->author->name }}" class="w-full h-full object-cover">
                 @else
                   <div class="w-full h-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
@@ -164,7 +164,7 @@
                 <a href="{{ route('article.detail', $related) }}" class="group block">
                   <div class="flex gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
                     <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-                      @if($related->thumbnail)
+                      @if($related->thumbnail && file_exists(storage_path('app/public/' . $related->thumbnail)))
                         <img src="{{ asset('storage/' . $related->thumbnail) }}" alt="{{ $related->title }}" class="w-full h-full object-cover">
                       @else
                         <div class="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -207,7 +207,7 @@
           <a href="{{ route('article.detail', $article) }}" class="group">
             <article class="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300">
               <div class="relative h-48 overflow-hidden">
-                @if($article->thumbnail)
+                @if($article->thumbnail && file_exists(storage_path('app/public/' . $article->thumbnail)))
                   <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 @else
                   <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -216,7 +216,7 @@
                     </svg>
                   </div>
                 @endif
-                
+
                 @if($article->category)
                   <div class="absolute top-3 left-3">
                     <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-600 text-white">

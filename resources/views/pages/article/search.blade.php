@@ -3,7 +3,7 @@
 
 @section("main")
 <!-- Hero Section -->
-<section class="relative bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 text-white py-16">
+<section class="relative bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 text-white py-16 pt-30">
   <div class="absolute inset-0 bg-black/20"></div>
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center">

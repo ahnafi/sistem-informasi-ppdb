@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<!-- Add spacing to push content below the banner -->
+
 <div class="h-[455px]"></div>
 
 <!-- Search Section -->
@@ -105,13 +105,18 @@
         <a href="{{ route('article.detail', $heroArticle) }}" class="group block">
           <article class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden h-full">
             <div class="relative h-64 md:h-80 overflow-hidden">
-              @if($heroArticle->thumbnail)
+              @if($heroArticle->thumbnail && file_exists(storage_path('app/public/' . $heroArticle->thumbnail)))
                 <img src="{{ asset('storage/' . $heroArticle->thumbnail) }}" alt="{{ $heroArticle->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
               @else
                 <div class="w-full h-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
                   <svg class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
                   </svg>
+                  @if(config('app.debug'))
+                    <div class="absolute bottom-2 left-2 text-xs text-red-500 bg-white p-1 rounded">
+                      Missing: {{ $heroArticle->thumbnail ?? 'No thumbnail' }}
+                    </div>
+                  @endif
                 </div>
               @endif
               
@@ -152,7 +157,7 @@
             <article class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 p-4">
               <div class="flex gap-4">
                 <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
-                  @if($article->thumbnail)
+                  @if($article->thumbnail && file_exists(storage_path('app/public/' . $article->thumbnail)))
                     <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                   @else
                     <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -199,7 +204,7 @@
         <a href="{{ route('article.detail', $article) }}" class="group">
           <article class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
             <div class="relative h-48 overflow-hidden">
-              @if($article->thumbnail)
+              @if($article->thumbnail && file_exists(storage_path('app/public/' . $article->thumbnail)))
                 <img src="{{ asset('storage/' . $article->thumbnail) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
               @else
                 <div class="w-full h-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
@@ -208,7 +213,7 @@
                   </svg>
                 </div>
               @endif
-              
+
               @if($article->category)
                 <div class="absolute top-3 left-3">
                   <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-indigo-600 text-white shadow-sm">
@@ -259,7 +264,7 @@
         <a href="{{ route('article.author', ['author' => $author->id]) }}" class="group">
           <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 p-6 text-center border border-gray-100">
             <div class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-indigo-100 group-hover:ring-indigo-200 transition-all">
-              @if($author->avatar)
+              @if($author->avatar && file_exists(storage_path('app/public/' . $author->avatar)))
                 <img src="{{ asset('storage/' . $author->avatar) }}" alt="{{ $author->name }}" class="w-full h-full object-cover">
               @else
                 <div class="w-full h-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">

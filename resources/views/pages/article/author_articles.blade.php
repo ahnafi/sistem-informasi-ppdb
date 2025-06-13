@@ -2,7 +2,7 @@
 
 @section('main')
 <!-- Hero Section with Author Info -->
-<section class="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 text-white py-20">
+<section class="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-700 text-white py-20 pt-30">
   <div class="absolute inset-0 bg-black/30"></div>
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col md:flex-row items-center gap-8">
