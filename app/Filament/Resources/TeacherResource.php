@@ -49,7 +49,7 @@ class TeacherResource extends Resource
                     ->required(),
                 Forms\Components\Textarea::make('address')
                     ->required(),
-                Forms\Components\Select::make('status')
+                Forms\Components\Select::make('teacher_status_id')
                     ->createOptionForm([
                         Forms\Components\TextInput::make("name")
                             ->required(),
@@ -60,7 +60,7 @@ class TeacherResource extends Resource
                     ])
                     ->searchable()
                     ->preload()
-                    ->relationship("status", "name")
+                    ->relationship("teacherStatus", "name")
                     ->required(),
                 Forms\Components\Select::make('position')->options(['Kepala Sekolah', 'Wakil Kepala Sekolah', 'Guru BK', 'Guru Wali Kelas', 'Guru Pembina OSIS', 'Guru Staf', 'Guru Penggerak', 'Guru Ekstrakurikuler']),
                 Select::make('religion')->options([
